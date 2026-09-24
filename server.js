@@ -156,17 +156,26 @@ app.post('/api/borrow', (req, res) => {
 app.post('/api/return', (req, res) => {
   const { transaction_id, book_id } = req.body;
 
-  // 1. I-update ang transaction status sa 'Returned'
-  const updateTxn = 'UPDATE transactions SET status = "Returned", return_date = NOW() WHERE id = ?';
+  if (!transaction_id || !book_id) {
+    return res.status(400).json({ error: 'Missing transaction_id or book_id' });
+  }
+
+  // 1. I-update ang transaction status gamit ang parameter placeholder (?)
+  const updateTxn = 'UPDATE transactions SET status = ?, return_date = NOW() WHERE id = ?';
   
-  db.query(updateTxn, [transaction_id], (err) => {
-    if (err) return res.status(500).json({ error: err.message });
+  db.query(updateTxn, ['Returned', transaction_id], (err) => {
+    if (err) {
+      console.error('Error updating transaction:', err);
+      return res.status(500).json({ error: err.message });
+    }
 
     // 2. I-update ang status ng libro pabalik sa 'Available'
-  const updateBook = 'UPDATE books SET status = ? WHERE id = ?';
-db.query(updateBook, ['Borrowed', book_id], (err) => {
-  if (err) console.error("Update Status Error:", err);
-
+    const updateBook = 'UPDATE books SET status = ? WHERE id = ?';
+    db.query(updateBook, ['Available', book_id], (err2) => {
+      if (err2) {
+        console.error('Error updating book status:', err2);
+        return res.status(500).json({ error: err2.message });
+      }
 
       res.json({ message: 'Book returned successfully' });
     });
