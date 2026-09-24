@@ -25,18 +25,30 @@ const db = mysql.createPool({
 // --- API ENDPOINTS ---
 
 // 1. Dashboard Metrics Counter
+// 1. Dashboard Metrics Counter
 app.get('/api/metrics', (req, res) => {
-    const query = `
-        SELECT 
-            (SELECT COUNT(*) FROM books) as total_books,
-            (SELECT COUNT(*) FROM books WHERE status = 'Available') as available_books,
-            (SELECT COUNT(*) FROM books WHERE status = 'Borrowed') as borrowed_books,
-            (SELECT IFNULL(SUM(fine), 0) FROM transactions WHERE status = 'Borrowed') as pending_fines
-    `;
-    db.query(query, (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(results[0]);
+  const query = `
+    SELECT 
+      (SELECT COUNT(*) FROM books) as total_books,
+      (SELECT COUNT(*) FROM transactions WHERE status = 'Borrowed') as borrowed_books,
+      (SELECT IFNULL(SUM(fine), 0) FROM transactions WHERE status = 'Borrowed') as pending_fines
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    
+    const row = results[0];
+    const total = row.total_books || 0;
+    const borrowed = row.borrowed_books || 0;
+    const available = Math.max(0, total - borrowed);
+
+    res.json({
+      total_books: total,
+      available_books: available,
+      borrowed_books: borrowed,
+      pending_fines: row.pending_fines
     });
+  });
 });
 
 // 2. Get All Books
