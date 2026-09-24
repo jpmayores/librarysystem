@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body class="bg-gray-100 text-gray-800 font-sans min-h-screen flex">
 
     <!-- Sidebar -->
@@ -14,16 +16,19 @@
         <div>
             <h2 class="text-xl font-bold mb-8">Admin Panel</h2>
             <nav class="space-y-2">
-                <button onclick="switchTab('inventory')" id="tab-btn-inventory" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800 text-white font-medium">
+                <button onclick="switchTab('inventory')" id="tab-btn-inventory"
+                    class="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800 text-white font-medium">
                     <i class="fa-solid fa-book text-emerald-400"></i> Inventory
                 </button>
-                <button onclick="switchTab('transactions')" id="tab-btn-transactions" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white font-medium">
+                <button onclick="switchTab('transactions')" id="tab-btn-transactions"
+                    class="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white font-medium">
                     <i class="fa-solid fa-clipboard-list text-amber-400"></i> Transactions
                 </button>
             </nav>
         </div>
 
-        <a href="/" class="w-full py-2.5 bg-slate-700 hover:bg-slate-600 text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+        <a href="/"
+            class="w-full py-2.5 bg-slate-700 hover:bg-slate-600 text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
             <i class="fa-solid fa-arrow-left"></i> Portal
         </a>
     </aside>
@@ -36,7 +41,8 @@
                 <h1 class="text-2xl font-bold text-gray-900">Control Dashboard</h1>
                 <p class="text-gray-500 text-sm">Manage system records, books, and metrics.</p>
             </div>
-            <button onclick="openAddBookModal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow flex items-center gap-2">
+            <button onclick="openAddBookModal()"
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow flex items-center gap-2">
                 + Add New Book
             </button>
         </div>
@@ -104,25 +110,28 @@
     </main>
 
     <!-- Modal for Adding Book -->
-   <!-- Modal for Adding Book -->
+    <!-- Modal for Adding Book -->
     <div id="add-book-modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center p-4 z-50">
         <div class="bg-white rounded-xl p-6 max-w-md w-full shadow-lg">
             <h3 class="text-xl font-bold mb-4">Add New Book</h3>
             <form id="addBookForm" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Book Title</label>
-                    <input type="text" id="newTitle" placeholder="Enter book title" required class="w-full border p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                    <input type="text" id="newTitle" placeholder="Enter book title" required
+                        class="w-full border p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
                 </div>
 
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Author</label>
-                    <input type="text" id="newAuthor" placeholder="Enter author name" required class="w-full border p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                    <input type="text" id="newAuthor" placeholder="Enter author name" required
+                        class="w-full border p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
                 </div>
 
                 <!-- Dropdown Category -->
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Category / Genre</label>
-                    <select id="newCategory" required class="w-full border p-2.5 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none">
+                    <select id="newCategory" required
+                        class="w-full border p-2.5 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none">
                         <option value="" disabled selected>-- Select Category --</option>
                         <option value="Horror">Horror</option>
                         <option value="Fantasy">Fantasy</option>
@@ -132,19 +141,25 @@
 
                 <!-- File Upload / Local Image Export -->
                 <div>
-                    <label class="block text-xs font-semibold text-gray-600 mb-1">Upload Cover Image from Computer</label>
-                    <input type="file" id="newImageFile" accept="image/*" class="w-full border p-2 rounded-lg text-sm bg-gray-50 file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Upload Cover Image from
+                        Computer</label>
+                    <input type="file" id="newImageFile" accept="image/*"
+                        class="w-full border p-2 rounded-lg text-sm bg-gray-50 file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                 </div>
 
                 <!-- Optional URL Input -->
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">OR Image URL Link (Optional)</label>
-                    <input type="text" id="newImage" placeholder="https://example.com/image.jpg" class="w-full border p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                    <input type="text" id="newImage" placeholder="https://example.com/image.jpg"
+                        class="w-full border p-2.5 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
                 </div>
 
                 <div class="flex justify-end gap-2 pt-2 border-t">
-                    <button type="button" onclick="closeAddBookModal()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm font-medium">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold">Save Book</button>
+                    <button type="button" onclick="closeAddBookModal()"
+                        class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg text-sm font-medium">Cancel</button>
+                    <button type="submit"
+                        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold">Save
+                        Book</button>
                 </div>
             </form>
         </div>
@@ -156,13 +171,13 @@
         function switchTab(tab) {
             document.getElementById('section-inventory').classList.toggle('hidden', tab !== 'inventory');
             document.getElementById('section-transactions').classList.toggle('hidden', tab !== 'transactions');
-            
-            document.getElementById('tab-btn-inventory').className = tab === 'inventory' 
-                ? 'w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800 text-white font-medium' 
+
+            document.getElementById('tab-btn-inventory').className = tab === 'inventory'
+                ? 'w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800 text-white font-medium'
                 : 'w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white font-medium';
-                
-            document.getElementById('tab-btn-transactions').className = tab === 'transactions' 
-                ? 'w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800 text-white font-medium' 
+
+            document.getElementById('tab-btn-transactions').className = tab === 'transactions'
+                ? 'w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-800 text-white font-medium'
                 : 'w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white font-medium';
         }
 
@@ -209,71 +224,89 @@
                         <td class="p-3"><span class="text-xs font-bold px-2 py-1 rounded ${t.status === 'Borrowed' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'}">${t.status.toUpperCase()}</span></td>
                         <td class="p-3 font-semibold text-gray-900">₱${t.fine}</td>
                         <td class="p-3">
-                            ${t.status === 'Borrowed' 
-                                ? `<button onclick="returnBook(${t.id}, ${t.book_id})" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded">Mark Returned</button>`
-                                : `<span class="text-xs text-gray-400 font-semibold">Completed</span>`
-                            }
+                          ${t.status === 'Borrowed' ?
+                        `<button onclick="returnBook(${t.id}, ${t.book_id})" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded">Mark Returned</button>` :
+                        `<span class="text-xs text-slate-500 font-medium">Completed</span>`
+                    }
                         </td>
                     </tr>
                 `).join('');
             } catch (err) { console.error(err); }
         }
 
-        async function returnBook(txnId, bookId) {
-            await fetch(`${API_URL}/return`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ transaction_id: txnId, book_id: bookId })
-            });
-            refreshData();
-        }
+      async function returnBook(transactionId, bookId) {
+  if (!confirm("Are you sure you want to mark this book as returned?")) return;
+
+  try {
+    const response = await fetch('/api/return', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        transaction_id: transactionId,
+        book_id: bookId
+      })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('Book successfully returned!');
+      location.reload(); // I-refresh ang dashboard UI
+    } else {
+      alert('Error: ' + data.error);
+    }
+  } catch (error) {
+    console.error('Error returning book:', error);
+    alert('Failed to connect to the server.');
+  }
+}
 
         async function deleteBook(bookId) {
-            if(confirm('Sigurado ka bang gustong idelete ang librong ito?')) {
+            if (confirm('Sigurado ka bang gustong idelete ang librong ito?')) {
                 await fetch(`${API_URL}/books/${bookId}`, { method: 'DELETE' });
                 refreshData();
             }
         }
 
-      // Helper function para i-convert ang local file papuntang Base64 string
-const convertFileToBase64 = (file) => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-});
+        // Helper function para i-convert ang local file papuntang Base64 string
+        const convertFileToBase64 = (file) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
 
-document.getElementById('addBookForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
+        document.getElementById('addBookForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-    const fileInput = document.getElementById('newImageFile');
-    const urlInput = document.getElementById('newImage').value.trim();
-    let imageUrl = urlInput;
+            const fileInput = document.getElementById('newImageFile');
+            const urlInput = document.getElementById('newImage').value.trim();
+            let imageUrl = urlInput;
 
-    // Kapag may napiling file mula sa computer, i-convert ito sa Base64
-    if (fileInput.files && fileInput.files[0]) {
-        try {
-            imageUrl = await convertFileToBase64(fileInput.files[0]);
-        } catch (err) {
-            console.error("Failed to convert image file:", err);
-        }
-    }
+            // Kapag may napiling file mula sa computer, i-convert ito sa Base64
+            if (fileInput.files && fileInput.files[0]) {
+                try {
+                    imageUrl = await convertFileToBase64(fileInput.files[0]);
+                } catch (err) {
+                    console.error("Failed to convert image file:", err);
+                }
+            }
 
-    await fetch(`${API_URL}/books`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            title: document.getElementById('newTitle').value,
-            author: document.getElementById('newAuthor').value,
-            category: document.getElementById('newCategory').value,
-            image_url: imageUrl
-        })
-    });
+            await fetch(`${API_URL}/books`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: document.getElementById('newTitle').value,
+                    author: document.getElementById('newAuthor').value,
+                    category: document.getElementById('newCategory').value,
+                    image_url: imageUrl
+                })
+            });
 
-    closeAddBookModal();
-    e.target.reset();
-    refreshData();
-});
+            closeAddBookModal();
+            e.target.reset();
+            refreshData();
+        });
         function openAddBookModal() { document.getElementById('add-book-modal').classList.remove('hidden'); }
         function closeAddBookModal() { document.getElementById('add-book-modal').classList.add('hidden'); }
 
@@ -286,4 +319,5 @@ document.getElementById('addBookForm').addEventListener('submit', async (e) => {
         document.addEventListener('DOMContentLoaded', refreshData);
     </script>
 </body>
+
 </html>

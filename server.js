@@ -154,31 +154,23 @@ app.post('/api/borrow', (req, res) => {
 });
 // 6. Return Book (Mark Returned)
 app.post('/api/return', (req, res) => {
-    const { transaction_id, book_id } = req.body;
+  const { transaction_id, book_id } = req.body;
 
-    db.getConnection((err, connection) => {
-        if (err) return res.status(500).json({ error: err.message });
+  // 1. I-update ang transaction status sa 'Returned'
+  const updateTxn = 'UPDATE transactions SET status = "Returned", return_date = NOW() WHERE id = ?';
+  
+  db.query(updateTxn, [transaction_id], (err) => {
+    if (err) return res.status(500).json({ error: err.message });
 
-        connection.beginTransaction(err => {
-            if (err) { connection.release(); return res.status(500).json({ error: err.message }); }
+    // 2. I-update ang status ng libro pabalik sa 'Available'
+    const updateBook = 'UPDATE books SET status = "Available" WHERE id = ?';
+    db.query(updateBook, [book_id], (err2) => {
+      if (err2) return res.status(500).json({ error: err2.message });
 
-            connection.query('UPDATE books SET status = "Available" WHERE id = ?', [book_id], (err) => {
-                if (err) return connection.rollback(() => { connection.release(); res.status(500).json({ error: err.message }); });
-
-                connection.query('UPDATE transactions SET status = "Returned", return_date = NOW() WHERE id = ?', [transaction_id], (err) => {
-                    if (err) return connection.rollback(() => { connection.release(); res.status(500).json({ error: err.message }); });
-
-                    connection.commit(err => {
-                        connection.release();
-                        if (err) return res.status(500).json({ error: err.message });
-                        res.json({ message: 'Book returned successfully!' });
-                    });
-                });
-            });
-        });
+      res.json({ message: 'Book returned successfully' });
     });
+  });
 });
-
 // 7. Get All Transactions
 app.get('/api/transactions', (req, res) => {
     const query = `
