@@ -163,9 +163,10 @@ app.post('/api/return', (req, res) => {
     if (err) return res.status(500).json({ error: err.message });
 
     // 2. I-update ang status ng libro pabalik sa 'Available'
-    const updateBook = 'UPDATE books SET status = "Available" WHERE id = ?';
-    db.query(updateBook, [book_id], (err2) => {
-      if (err2) return res.status(500).json({ error: err2.message });
+  const updateBook = 'UPDATE books SET status = ? WHERE id = ?';
+db.query(updateBook, ['Borrowed', book_id], (err) => {
+  if (err) console.error("Update Status Error:", err);
+
 
       res.json({ message: 'Book returned successfully' });
     });
