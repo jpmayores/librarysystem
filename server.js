@@ -40,26 +40,35 @@ app.get('/api/metrics', (req, res) => {
 });
 
 // 2. Get All Books
+// GET all books
 app.get('/api/books', (req, res) => {
-    db.query('SELECT * FROM books ORDER BY id DESC', (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(results);
-    });
+  const query = 'SELECT * FROM books';
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error('Error fetching books:', err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(results);
+  });
 });
 
-// 3. Add New Book
+// POST add a new book
 app.post('/api/books', (req, res) => {
-    const { title, author, category, image_url } = req.body;
-    db.query(
-        'INSERT INTO books (title, author, category, image_url) VALUES (?, ?, ?, ?)', 
-        [title, author, category, image_url || 'https://via.placeholder.com/150'], 
-        (err, result) => {
-            if (err) return res.status(500).json({ error: err.message });
-            res.json({ message: 'Book added successfully!', id: result.insertId });
-        }
-    );
-});
+  const { title, author, category, image_url, genre } = req.body;
+  
+  // Gagamit ng category o genre depende sa kung alin ang isinend mula sa frontend
+  const bookCategory = category || genre || 'General';
+  const bookImage = image_url || '';
 
+  const query = 'INSERT INTO books (title, author, category, image_url) VALUES (?, ?, ?, ?)';
+  db.query(query, [title, author, bookCategory, bookImage], (err, result) => {
+    if (err) {
+      console.error('Error inserting book:', err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.status(201).json({ message: 'Book added successfully', id: result.insertId });
+  });
+});
 // 4. Delete Book
 app.delete('/api/books/:id', (req, res) => {
     const { id } = req.params;
