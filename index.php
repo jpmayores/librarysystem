@@ -4,23 +4,13 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: user_login.php');
     exit();
 }
-// Tawagin ang hiwalay na email function at i-check kung may error
-$emailResult = sendBorrowConfirmationEmail($borrowerEmail, $borrowerName, $bookTitle, $borrowDays, $due_date);
+require_once 'config/db.php';
+require_once 'actions/send_borrow_email.php'; 
 
-if ($emailResult === true) {
-    header('Location: user_dashboard.php?email=success');
-    exit();
-} else {
-    // Ipapakita nito ang eksaktong dahilan kung bakit nabigo ang email
-    echo "<div style='background: #ffe6e6; padding: 20px; border: 1px solid red; font-family: sans-serif;'>";
-    echo "<h3>⚠️ Nabigo ang pagpapadala ng Email:</h3>";
-    echo "<p>" . htmlspecialchars($emailResult) . "</p>";
-    echo "<a href='user_dashboard.php'>Bumalik sa Dashboard</a>";
-    echo "</div>";
+if (!isset($_SESSION['user_id'])) {
+    header('Location: user_login.php');
     exit();
 }
-require_once 'config/db.php';
-require_once 'actions/send_borrow_email.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'borrow_book') {
     $book_id = intval($_POST['book_id'] ?? 0);
@@ -34,46 +24,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $conn->beginTransaction();
 
         // I-insert ang record sa transactions table
-        $trans_stmt = $conn->prepare("INSERT INTO transactions (book_id, member_id, borrow_date, due_date, return_date, status) VALUES (?, ?, ?, ?, NULL, 'Borrowed')");
+        $trans_stmt = $conn->prepare("INSERT INTO transactions (book_id, member_id, borrow_date, due_date, return_date) VALUES (?, ?, ?, ?, NULL)");
         $trans_stmt->execute([$book_id, $user_id, $borrow_date, $due_date]);
 
         // I-update ang status ng libro sa books table para maging 'Borrowed'
         $book_stmt = $conn->prepare("UPDATE books SET status = 'Borrowed' WHERE id = ?");
         $book_stmt->execute([$book_id]);
-        
+
+        // Kunin ang info ng user at book para sa email
         $userEmailQuery = $conn->prepare("SELECT name, email FROM users WHERE id = ?");
-    $userEmailQuery->execute([$user_id]);
-    $userInfo = $userEmailQuery->fetch(PDO::FETCH_ASSOC);
+        $userEmailQuery->execute([$user_id]);
+        $userInfo = $userEmailQuery->fetch(PDO::FETCH_ASSOC);
 
-    $bookTitleQuery = $conn->prepare("SELECT title FROM books WHERE id = ?");
-    $bookTitleQuery->execute([$book_id]);
-    $bookInfo = $bookTitleQuery->fetch(PDO::FETCH_ASSOC);
+        $bookTitleQuery = $conn->prepare("SELECT title FROM books WHERE id = ?");
+        $bookTitleQuery->execute([$book_id]);
+        $bookInfo = $bookTitleQuery->fetch(PDO::FETCH_ASSOC);
 
-    if ($userInfo && $bookInfo) {
-        require_once 'actions/send_borrow_email.php';
-        
-        $borrowerEmail = $userInfo['email'];
-        $borrowerName  = $userInfo['name'];
-        $bookTitle     = $bookInfo['title'];
-        $borrowDays    = $borrow_days;
-        // Kunin ang petsa ng due date mula sa $due_date na kinompute mo na sa taas
-        
-        // Tawagin ang hiwalay na email function
-        sendBorrowConfirmationEmail($borrowerEmail, $borrowerName, $bookTitle, $borrowDays, $due_date);
-    }
+        if ($userInfo && $bookInfo) {
+            // Tawagin na ang function dahil nakarehistro na ito sa itaas
+            $emailResult = sendBorrowConfirmationEmail(
+                $userInfo['email'], 
+                $userInfo['name'], 
+                $bookInfo['title'], 
+                $borrow_days, 
+                $due_date
+            );
+
+            if ($emailResult !== true) {
+                // I-log kung sakaling may issue sa pagpapadala
+                error_log("Email sending failed: " . $emailResult);
+            }
+        }
+
         $conn->commit();
-
-        // Pag tagumpay, dalhin sa user dashboard
-        header('Location: user_dashboard.php');
+        header('Location: user_dashboard.php?borrow=success');
         exit();
 
     } catch (Exception $e) {
         $conn->rollBack();
-        // Ipapakita ang eksaktong error kung sakaling may problema sa database
-        die("DATABASE ERROR: " . $e->getMessage());
+        echo "Error: " . $e->getMessage();
     }
 }
-
 
 // Kunin ang listahan ng mga libro
 try {
