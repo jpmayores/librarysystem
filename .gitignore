@@ -1,0 +1,22 @@
+node_modules/
+.env
+# PHP / Local Database / Config
+config.php
+*.log
+*.sqlite
+*.db
+# Composer (Kung gumagamit ka ng PHPMailer via Composer)
+/vendor/
+# OS / Editor temporary files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporary / Uploaded Files (Para hindi ma-push ang mga sample uploaded book covers/images)
+uploads/
+assets/uploads/
+
+# Environment
+.env
+.env.*
