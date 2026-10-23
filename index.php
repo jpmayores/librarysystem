@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $book_stmt->execute([$book_id]);
 
         // Kunin ang info ng user at book para sa email
-        $userEmailQuery = $conn->prepare("SELECT name, email FROM users WHERE id = ?");
+        $userEmailQuery = $conn->prepare("SELECT name, email FROM members WHERE id = ?");
         $userEmailQuery->execute([$user_id]);
         $userInfo = $userEmailQuery->fetch(PDO::FETCH_ASSOC);
 
