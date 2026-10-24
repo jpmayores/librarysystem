@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="asset/index.css">
 </head>
 
-<body>
+<body class="bg-[#0b0f19] min-h-screen w-full flex justify-center pt-16 m-0 p-4">
     <div class="auth-container">
         <h2>Create  Account</h2>
         <?php if (!empty($error)): ?>
