@@ -868,7 +868,6 @@ body.dark-mode .portal-status-tag.borrowed {
 }
 
 
-/* Password Wrapper para sa Eye Icon */
 .password-wrapper {
     position: relative;
     width: 100%;
@@ -876,8 +875,7 @@ body.dark-mode .portal-status-tag.borrowed {
 
 .password-wrapper input {
     width: 100%;
-    padding-right: 40px;
-    /* Para hindi matakpan ng icon ang text */
+    padding-right: 42px;
 }
 
 .toggle-password {
@@ -886,10 +884,21 @@ body.dark-mode .portal-status-tag.borrowed {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    font-size: 16px;
-    user-select: none;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
 }
 
+.toggle-password:hover {
+    color: #f8fafc;
+}
+
+.toggle-password svg {
+    width: 20px;
+    height: 20px;
+}
 /* Terms & Conditions Checkbox Styling */
 .terms-group {
     display: flex;
