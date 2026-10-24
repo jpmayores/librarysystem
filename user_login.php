@@ -78,9 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['login_attempts'] < $max_
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body
-    style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background-color: #0b0f19; margin: 0;">
-    <div class="bg-[#1e293b] w-full max-w-sm p-8 rounded-2xl border border-slate-800 shadow-2xl">
+<body  style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background-color: #0b0f19; margin: 0;">
+   <div class="auth-container">
+<div class="bg-[#1e293b] w-full max-w-sm p-8 rounded-2xl border border-slate-800 shadow-2xl">
 
         <!-- Header & Logo -->
         <div class="text-center mb-6">
@@ -94,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['login_attempts'] < $max_
             <h2 class="text-2xl font-bold text-white tracking-wide">PageFlow</h2>
             <p class="text-xs text-slate-400 mt-1">Member Portal Login</p>
         </div>
+        
         <?php if (!empty($error)): ?>
             <div class="alert-error"><?= $error; ?></div><?php endif; ?>
 
