@@ -80,16 +80,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['login_attempts'] < $max_
     </style>
 </head>
 
-<body style="background-color: #0b0f19; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-    <div class="auth-container">
-       <div class="bg-[#1e293b] p-8 rounded-2xl shadow-2xl w-full max-w-md border border-slate-800 mx-4">
+<body class="bg-[#0b0f19] min-h-screen flex items-center justify-center m-0">
+
+    <div class="bg-[#1e293b] p-8 rounded-2xl shadow-2xl w-full max-w-md border border-slate-800 mx-4">
         
         <!-- Brand Logo & Header -->
         <div class="text-center mb-6">
             <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-600/20 text-blue-500 mb-3 shadow-inner">
                 <!-- Book / Library SVG Icon -->
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                 </svg>
             </div>
             <h2 class="text-2xl font-bold text-slate-100 tracking-wide">PageFlow</h2>
