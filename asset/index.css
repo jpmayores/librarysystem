@@ -418,68 +418,7 @@ body.dark-mode .portal-status-tag.borrowed {
 
 /* Aunthethication Area */
 
-        .auth-container h2 {
-            margin-bottom: 20px;
-            color: var(--text-color);
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .form-group label {
-            font-size: 14px;
-            color: var(--text-color);
-        }
-
-        .form-group input {
-            padding: 10px 14px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-color);
-            color: var(--text-color);
-            outline: none;
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 10px;
-            background: var(--primary-color);
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .auth-link {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .auth-link a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 13px;
-        }
-
-
+     
   /* Admin Portal Log in */
 
 
