@@ -74,9 +74,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="email" name="email" required>
             </div>
 
-            <div class="form-group">
+           <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" required>
+                <div class="password-wrapper">
+                    <input type="password" name="password" id="password" required>
+                    <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <div class="password-wrapper">
+                    <input type="password" name="confirm_password" id="confirm_password" required>
+                    <span class="toggle-password" onclick="togglePassword('confirm_password', this)">👁️</span>
+                </div>
+            </div>
+
+            <!-- Agreement Checkbox -->
+            <div class="terms-group">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the <em>Terms & Conditions</em></label>
             </div>
 
             <button type="submit" class="auth-btn">
@@ -90,6 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </p>
 
     </div>
-
+<script src="asset/script.js"></script>
 </body>
 </html>

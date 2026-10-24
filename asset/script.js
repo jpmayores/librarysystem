@@ -81,3 +81,19 @@ function toggleDamageFee() {
         }
     }
 }
+
+
+
+
+
+
+function togglePassword(fieldId, icon) {
+            const inputField = document.getElementById(fieldId);
+            if (inputField.type === "password") {
+                inputField.type = "text";
+                icon.textContent = "🙈";
+            } else {
+                inputField.type = "password";
+                icon.textContent = "👁️";
+            }
+        }
