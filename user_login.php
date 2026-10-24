@@ -77,51 +77,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['login_attempts'] < $max_
     <link rel="stylesheet" href="asset/index.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-[#0b0f19] min-h-screen flex items-center justify-center m-0">
 
-<body style="background-color: #0b0f19; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;">    <!-- Card Container -->
-   <div class="auth-container">
+    <div class="auth-container">
         
         <!-- Brand Logo & Header -->
-        <div style="text-align: center; margin-bottom: 24px;">
-            <div style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: rgba(37, 99, 235, 0.2); color: #3b82f6; border-radius: 12px; margin-bottom: 12px;">
-                <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="text-center mb-6">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-600/20 text-blue-500 mb-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                 </svg>
             </div>
-            <h2 style="font-size: 24px; font-weight: bold; color: #f8fafc; margin: 0; letter-spacing: 0.5px;">PageFlow</h2>
-            <p style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Member Portal Login</p>
+            <h2 class="text-2xl font-bold text-slate-100 tracking-wide">PageFlow</h2>
+            <p class="text-xs text-slate-400 mt-1">Member Portal Login</p>
         </div>
 
         <!-- Error Message kung meron man -->
         <?php if (!empty($error)): ?>
-            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; color: #f87171; font-size: 13px; padding: 10px; border-radius: 8px; margin-bottom: 16px; text-align: center;">
+            <div class="bg-red-500/10 border border-red-500 text-red-400 text-xs p-2.5 rounded-lg mb-4 text-center">
                 <?= htmlspecialchars($error); ?>
             </div>
         <?php endif; ?>
 
         <!-- Login Form -->
         <form action="user_login.php" method="POST">
-            <div style="margin-bottom: 16px;">
-                <label style="display: block; font-size: 12px; font-weight: 500; color: #cbd5e1; margin-bottom: 6px;">Username</label>
-                <input type="text" name="username" required 
-                    style="width: 100%; padding: 10px 14px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #f8fafc; font-size: 14px; box-sizing: border-box; outline: none;">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" required>
             </div>
 
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 12px; font-weight: 500; color: #cbd5e1; margin-bottom: 6px;">Password</label>
-                <input type="password" name="password" required 
-                    style="width: 100%; padding: 10px 14px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #f8fafc; font-size: 14px; box-sizing: border-box; outline: none;">
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required>
             </div>
 
-            <button type="submit" 
-                style="width: 100%; padding: 11px; background: #2563eb; color: white; font-weight: 500; border-radius: 8px; border: none; font-size: 14px; cursor: pointer;">
+            <button type="submit" class="auth-btn">
                 Login
             </button>
         </form>
 
         <!-- Footer Link -->
-        <p style="text-align: center; font-size: 12px; color: #94a3b8; margin-top: 20px; margin-bottom: 0;">
-            No account? <a href="user_register.php" style="color: #60a5fa; text-decoration: none;">Create Here</a>
+        <p class="auth-link">
+            No account? <a href="user_register.php">Create Here</a>
         </p>
 
     </div>
