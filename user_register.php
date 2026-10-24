@@ -40,34 +40,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Register - BookBase</title>
     <link rel="stylesheet" href="asset/index.css">
 </head>
-
 <body class="bg-[#0b0f19] min-h-screen w-full flex justify-center pt-16 m-0 p-4">
-    <div class="auth-container">
-        <h2>Create  Account</h2>
-        <?php if (!empty($error)): ?>
-            <div class="alert-error"><?= $error; ?></div><?php endif; ?>
-        <?php if (!empty($success)): ?>
-            <div class="alert-success"><?= $success; ?></div><?php endif; ?>
 
+    <div class="auth-container">
+        
+        <!-- Header -->
+        <h2 class="text-2xl font-bold text-slate-100 text-center mb-6 tracking-wide">Create Account</h2>
+
+        <!-- Error Message kung meron man -->
+        <?php if (!empty($error)): ?>
+            <div class="alert-error">
+                <?= htmlspecialchars($error); ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Success Message kung meron man -->
+        <?php if (!empty($success)): ?>
+            <div class="alert-success">
+                <?= htmlspecialchars($success); ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Register Form -->
         <form action="user_register.php" method="POST">
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username" required>
             </div>
+
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" name="email" required>
             </div>
+
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password" required>
             </div>
-            <button type="submit" class="auth-btn">Register</button>
-        </form>
-        <div class="auth-link">
-            Already Have an Account? <a href="user_login.php">Log In Here</a>
-        </div>
-    </div>
-</body>
 
-</html>
+            <button type="submit" class="auth-btn">
+                Register
+            </button>
+        </form>
+
+        <!-- Footer Link -->
+        <p class="auth-link">
+            Already Have an Account? <a href="user_login.php">Log In Here</a>
+        </p>
+
+    </div>
+
+</body>

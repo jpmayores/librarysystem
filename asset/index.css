@@ -532,7 +532,17 @@ body.dark-mode .portal-status-tag.borrowed {
 .auth-link a:hover {
     text-decoration: underline;
 }
-     
+     /* Alert Success Box */
+.alert-success {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 20px;
+    text-align: center;
+}
   /* Admin Portal Log in */
 
 
