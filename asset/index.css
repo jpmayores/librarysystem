@@ -300,9 +300,9 @@ body.dark-mode .portal-status-tag.borrowed {
     transform: translateY(-2px);
 }
 .auth-container {
-  width: 100%;
+width: 100%;
     max-width: 400px;
-    margin: 100px; /* Huwag lagyan ng margin: 80px auto */
+    margin: 0; /* Huwag lagyan ng fixed px gaya ng 100px */
     background: #1e293b;
     padding: 30px;
     border-radius: 16px;
