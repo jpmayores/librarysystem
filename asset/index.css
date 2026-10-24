@@ -419,12 +419,14 @@ body.dark-mode .portal-status-tag.borrowed {
 
 /* Aunthethication Area */
  .auth-container {
-            max-width: 400px;
-            margin: 80px auto;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
+          width: 100%;
+    max-width: 400px;
+    margin: 0; /* Alisin ang 'margin: 80px auto' para hindi suminsay sa gitna */
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid #334155;
+    box-sizing: border-box;
         }
 
         .auth-container h2 {
