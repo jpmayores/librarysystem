@@ -78,7 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['login_attempts'] < $max_
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#0b0f19] min-h-screen w-full flex justify-center pt-16 m-0 p-4">
-        <div class="auth-container">
+
+    <div class="auth-container fade-in">
         
         <!-- Brand Logo & Header -->
         <div class="text-center mb-6">
@@ -105,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['login_attempts'] < $max_
                 <input type="text" name="username" required>
             </div>
 
-         <div class="form-group">
+            <div class="form-group">
                 <label>Password</label>
                 <div class="password-wrapper">
                     <input type="password" name="password" id="password" required>
@@ -124,9 +125,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['login_attempts'] < $max_
             </button>
         </form>
 
-        <!-- Footer Link -->
+        <!-- Footer Link na may Smooth Transition -->
         <p class="auth-link">
-            No account? <a href="user_register.php">Create Here</a>
+            No account? <a href="user_register.php" class="transition-link">Create Here</a>
         </p>
 
     </div>

@@ -925,3 +925,52 @@ body.dark-mode .portal-status-tag.borrowed {
     color: #60a5fa;
     font-style: normal;
 }
+
+/* Fade-in Animation kapag naglo-load o lumilipat ng page */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Password Toggle Icon Styles */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 42px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+    color: #f8fafc;
+}
+
+.toggle-password svg {
+    width: 20px;
+    height: 20px;
+}
