@@ -77,8 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['login_attempts'] < $max_
     <link rel="stylesheet" href="asset/index.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="auth-container">
+<body style="background-color: #0b0f19; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;">    <div class="auth-container">
         
         <!-- Brand Logo & Header -->
         <div class="text-center mb-6">
