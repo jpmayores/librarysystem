@@ -78,8 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['login_attempts'] < $max_
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body style="background-color: #0b0f19; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: sans-serif;">
-
+<body style="background-color: #0b0f19; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;">
     <!-- Card Container -->
     <div style="width: 100%; max-width: 400px; background: #1e293b; padding: 32px; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); box-sizing: border-box;">
         
