@@ -142,7 +142,7 @@ try {
 
     <!-- Header Navigation -->
     <header class="portal-header">
-        <div class="portal-logo">BookBase</div>
+        <div style="color: var(--text-color);" class="font-bold text-lg">BookBase</div>
         <div class="portal-header-actions">
             <a href="user_dashboard.php" class="portal-user-icon-btn" title="My Dashboard">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -160,7 +160,7 @@ try {
     <!-- Main Catalog Container -->
     <main class="portal-main-container">
         <div class="portal-catalog-header">
-            <h2 class="portal-catalog-title">Library Catalog</h2>
+            <h2 style="color: var(--text-color);" class="text-2xl font-bold mb-4">Library Catalog</h2>
         </div>
 
         <!-- SEARCH AND CATEGORY FILTER FORM -->

@@ -44,7 +44,8 @@ body {
    INDEX.PHP / PUBLIC PORTAL STYLES
    ========================================== */
 .portal-header {
-    background-color: var(--header-bg);
+  background-color: var(--header-bg);
+    color: var(--text-color);
     border-bottom: 1px solid var(--border-color);
     padding: 16px 40px;
     display: flex;
