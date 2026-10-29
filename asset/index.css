@@ -5,9 +5,11 @@
    GLOBAL BASE STYLES
    ========================================== */
 :root {
-    --card-bg: #1e293b;
+    --card-bg: #ffffff;
     /* Gawin mong dark blue/gray */
-    --border-color: #334155;
+   --border-color: #cbd5e1;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
     /* Kulay ng border */
     --text-color: #edeff1;
     --text-muted: #64748b;
