@@ -1,8 +1,3 @@
-
-
-
-
-
 <?php
 $host = getenv('DB_HOST') ?: 'aws-1-ap-northeast-1.pooler.supabase.com';
 $port = getenv('DB_PORT') ?: '5432';
