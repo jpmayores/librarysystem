@@ -5,15 +5,11 @@
    GLOBAL BASE STYLES
    ========================================== */
 :root {
+    --bg-color: #f8fafc;        /* Background color para sa Light Mode */
     --card-bg: #ffffff;
-    /* Gawin mong dark blue/gray */
-   --border-color: #cbd5e1;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    /* Kulay ng border */
-    --text-color: #edeff1;
+    --text-color: #1e293b;      /* Maitim na text para mabasa sa puting background */
     --text-muted: #64748b;
-    --border-color: #e2e8f0;
+    --border-color: #cbd5e1;
     --header-bg: #ffffff;
     --primary-color: #2563eb;
 }
