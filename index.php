@@ -142,7 +142,7 @@ try {
 
     <!-- Header Navigation -->
     <header class="portal-header">
-        <div style="color: var(--text-color);" class="font-bold text-lg">BookBase</div>
+        <div style="color: var(--text-color);" class="font-bold text-lg">AUTOMATED LIBRARY TRANSACTIONS SYSTEM</div>
         <div class="portal-header-actions">
             <a href="user_dashboard.php" class="portal-user-icon-btn" title="My Dashboard">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
