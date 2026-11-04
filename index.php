@@ -245,7 +245,30 @@ try {
     </main>
 
     <!-- POPUP MODAL FOR BORROW DURATION -->
-   
+    <div id="borrowModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modalBookTitle">Borrow Book</h3>
+            <form action="index.php" method="POST">
+                <input type="hidden" name="action" value="borrow_book">
+                <input type="hidden" id="modalBookId" name="book_id" value="">
+
+                <div style="margin-bottom: 15px;">
+                    <label>Select Borrow Duration (Days):</label>
+                    <select name="borrow_days" required>
+                        <option value="7">7 Days (1 Week)</option>
+                        <option value="14">14 Days (2 Weeks)</option>
+                        <option value="30">30 Days (1 Month)</option>
+                    </select>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn-cancel" onclick="closeBorrowModal()">Cancel</button>
+                    <button type="submit" class="modal-btn-submit">Confirm Borrow</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <script src="asset/script.js">
     </script>
