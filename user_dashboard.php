@@ -268,7 +268,9 @@ try {
                                 <input type="hidden" name="book_id"
                                     value="<?= htmlspecialchars($borrowed['book_id'] ?? $borrowed['id'] ?? ''); ?>">
                                 <input type="hidden" name="action" value="return_book">
-                                <button type="submit" class="btn-return">Return</button>
+                            <button type="button" onclick="openReturnModal('<?php echo $history['borrow_id']; ?>')" style="padding: 0.25rem 0.75rem; background-color: #2563eb; color: #ffffff; font-size: 0.75rem; font-weight: 600; border-radius: 0.375rem; border: none; cursor: pointer;">
+    Return
+</button>
                             </form>
                         </div>
                     </div>
@@ -330,36 +332,35 @@ try {
             <?php endif; ?>
         </div>
     </main>
-    <div id="returnModal"
-        style="display: none; position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); align-items: center; justify-content: center; z-index: 9999; padding: 1rem;">
-        <div
-            style="background-color: #1e293b; border: 1px solid #334155; border-radius: 1rem; max-width: 28rem; width: 100%; padding: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); color: #f8fafc; margin: auto;">
-            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #f8fafc;">Kumpirmahin ang
-                Pagbabalik</h3>
-            <p style="color: #cbd5e1; font-size: 0.875rem; margin-bottom: 1.5rem; line-height: 1.5;">
-                Kailangan mong pumunta sa library at iabot ang libro sa librarian para ma-proseso at mailipat sa status
-                na <span style="color: #60a5fa; font-weight: 600;">Returned</span>. Nais mo bang magpatuloy?
-            </p>
-
-            <form id="returnForm" action="process_return.php" method="POST">
-                <input type="hidden" name="borrow_id" id="modalBorrowId" value="">
-
-                <div style="display: flex; justify-content: flex-end; gap: 12px;">
-                    <button type="button" onclick="closeReturnModal()"
-                        style="padding: 0.5rem 1rem; background-color: #334155; color: #e2e8f0; font-size: 0.875rem; font-weight: 500; border-radius: 0.5rem; border: none; cursor: pointer;">
-                        Kanselahin
-                    </button>
-                    <button type="submit"
-                        style="padding: 0.5rem 1rem; background-color: #2563eb; color: #ffffff; font-size: 0.875rem; font-weight: 600; border-radius: 0.5rem; border: none; cursor: pointer;">
-                        Magtungo sa Library / I-proseso
-                    </button>
-                </div>
-            </form>
-        </div>
+   <!-- Return Confirmation Modal -->
+<div id="returnModal" style="display: none; position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); align-items: center; justify-content: center; z-index: 9999; padding: 1rem;">
+    <div style="background-color: #1e293b; border: 1px solid #334155; border-radius: 1rem; max-width: 28rem; width: 100%; padding: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); color: #f8fafc; margin: auto;">
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #f8fafc;">Kumpirmahin ang Pagbabalik</h3>
+        <p style="color: #cbd5e1; font-size: 0.875rem; margin-bottom: 1.5rem; line-height: 1.5;">
+            Kailangan mong pumunta sa library at iabot ang libro sa librarian para ma-proseso at mailipat sa status na <span style="color: #60a5fa; font-weight: 600;">Returned</span>. Nais mo bang magpatuloy?
+        </p>
+        
+        <form id="returnForm" action="process_return.php" method="POST">
+            <input type="hidden" name="borrow_id" id="modalBorrowId" value="">
+            
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                <button type="button" onclick="closeReturnModal()" style="padding: 0.5rem 1rem; background-color: #334155; color: #e2e8f0; font-size: 0.875rem; font-weight: 500; border-radius: 0.5rem; border: none; cursor: pointer;">
+                    Kanselahin
+                </button>
+                <button type="submit" style="padding: 0.5rem 1rem; background-color: #2563eb; color: #ffffff; font-size: 0.875rem; font-weight: 600; border-radius: 0.5rem; border: none; cursor: pointer;">
+                    Magtungo sa Library / I-proseso
+                </button>
+            </div>
+        </form>
     </div>
+</div>
+<?php
+
+?>
+<!-- Update trigger -->
     <!-- Dark Mode Script -->
     <script>
-        function openReturnModal(borrowId) {
+       function openReturnModal(borrowId) {
         const modal = document.getElementById('returnModal');
         const modalBorrowId = document.getElementById('modalBorrowId');
         modalBorrowId.value = borrowId;
