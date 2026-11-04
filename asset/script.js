@@ -107,4 +107,28 @@ function togglePassword(fieldId, element) {
             }
         }
 
+        function openReturnModal(borrowId) {
+        const modal = document.getElementById('returnModal');
+        const modalBorrowId = document.getElementById('modalBorrowId');
         
+        // Ipasok ang ID sa hidden input ng form
+        modalBorrowId.value = borrowId;
+        
+        // Buksan ang modal
+        modal.classList.add('flex');
+    }
+
+    function closeReturnModal() {
+        const modal = document.getElementById('returnModal');
+        
+        // Isara o itago ang modal
+        modal.classList.remove('flex');
+    }
+
+    // Isara kapag pinindot ang labas ng modal box
+    window.onclick = function(event) {
+        const modal = document.getElementById('returnModal');
+        if (event.target === modal) {
+            closeReturnModal();
+        }
+    }
