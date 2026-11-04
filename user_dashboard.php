@@ -91,24 +91,109 @@ try {
     <title>User Dashboard - BookBase</title>
     <link rel="stylesheet" href="asset/index.css">
     <style>
- .btn-return {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    color: #ffffff;
-    border: none;
-    padding: 6px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.1s ease, box-shadow 0.2s ease;
-}
+        .btn-return {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #ffffff;
+            border: none;
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+        }
 
-.btn-return:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
-}
+        .btn-return:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
 
+        #returnModal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 1rem;
+            overflow-y: auto;
+        }
 
+        #returnModal.flex {
+            display: flex !important;
+        }
+
+        .modal-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 1rem;
+            max-width: 28rem;
+            width: 100%;
+            padding: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            color: #f8fafc;
+            margin: auto;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #f8fafc;
+        }
+
+        .modal-text {
+            color: #cbd5e1;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .modal-highlight {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .modal-btn-cancel {
+            padding: 0.5rem 1rem;
+            background-color: #334155;
+            color: #e2e8f0;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .modal-btn-cancel:hover {
+            background-color: #475569;
+        }
+
+        .modal-btn-submit {
+            padding: 0.5rem 1rem;
+            background-color: #2563eb;
+            color: #ffffff;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+            transition: background-color 0.2s;
+        }
+
+        .modal-btn-submit:hover {
+            background-color: #1d4ed8;
+        }
     </style>
 </head>
 
@@ -244,32 +329,54 @@ try {
                 </div>
             <?php endif; ?>
         </div>
-        <!-- Return Confirmation Modal (Fixed Centering) -->
-<div id="returnModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4 overflow-y-auto">
-    <div class="bg-[#1e293b] border border-[#334155] rounded-2xl max-w-md w-full p-6 shadow-2xl text-slate-100 transform transition-all my-auto">
-        <h3 class="text-xl font-bold mb-2 text-slate-100">Kumpirmahin ang Pagbabalik</h3>
-        <p class="text-slate-300 text-sm mb-6">
-            Kailangan mong pumunta sa library at iabot ang libro sa librarian para ma-proseso at mailipat sa status na <span class="text-blue-400 font-semibold">Returned</span>. Nais mo bang magpatuloy?
-        </p>
-        
-        <form id="returnForm" action="process_return.php" method="POST">
-            <input type="hidden" name="borrow_id" id="modalBorrowId" value="">
-            
-            <div class="flex justify-end gap-3">
-                <button type="button" onclick="closeReturnModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 text-sm font-medium rounded-lg transition">
-                    Kanselahin
-                </button>
-                <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg shadow-lg shadow-blue-600/30 transition">
-                    Magtungo sa Library / I-proseso
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
     </main>
+    <div id="returnModal"
+        style="display: none; position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); align-items: center; justify-content: center; z-index: 9999; padding: 1rem;">
+        <div
+            style="background-color: #1e293b; border: 1px solid #334155; border-radius: 1rem; max-width: 28rem; width: 100%; padding: 1.5rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); color: #f8fafc; margin: auto;">
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #f8fafc;">Kumpirmahin ang
+                Pagbabalik</h3>
+            <p style="color: #cbd5e1; font-size: 0.875rem; margin-bottom: 1.5rem; line-height: 1.5;">
+                Kailangan mong pumunta sa library at iabot ang libro sa librarian para ma-proseso at mailipat sa status
+                na <span style="color: #60a5fa; font-weight: 600;">Returned</span>. Nais mo bang magpatuloy?
+            </p>
 
+            <form id="returnForm" action="process_return.php" method="POST">
+                <input type="hidden" name="borrow_id" id="modalBorrowId" value="">
+
+                <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                    <button type="button" onclick="closeReturnModal()"
+                        style="padding: 0.5rem 1rem; background-color: #334155; color: #e2e8f0; font-size: 0.875rem; font-weight: 500; border-radius: 0.5rem; border: none; cursor: pointer;">
+                        Kanselahin
+                    </button>
+                    <button type="submit"
+                        style="padding: 0.5rem 1rem; background-color: #2563eb; color: #ffffff; font-size: 0.875rem; font-weight: 600; border-radius: 0.5rem; border: none; cursor: pointer;">
+                        Magtungo sa Library / I-proseso
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
     <!-- Dark Mode Script -->
     <script>
+        function openReturnModal(borrowId) {
+        const modal = document.getElementById('returnModal');
+        const modalBorrowId = document.getElementById('modalBorrowId');
+        modalBorrowId.value = borrowId;
+        modal.style.display = 'flex';
+    }
+
+    function closeReturnModal() {
+        const modal = document.getElementById('returnModal');
+        modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('returnModal');
+        if (event.target === modal) {
+            closeReturnModal();
+        }
+    }
         const darkModeToggle = document.getElementById('darkModeToggle');
         const body = document.body;
 
