@@ -106,3 +106,5 @@ function togglePassword(fieldId, element) {
                 `;
             }
         }
+
+        

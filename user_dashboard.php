@@ -244,6 +244,28 @@ try {
                 </div>
             <?php endif; ?>
         </div>
+        <!-- Return Confirmation Modal (Fixed Centering) -->
+<div id="returnModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4 overflow-y-auto">
+    <div class="bg-[#1e293b] border border-[#334155] rounded-2xl max-w-md w-full p-6 shadow-2xl text-slate-100 transform transition-all my-auto">
+        <h3 class="text-xl font-bold mb-2 text-slate-100">Kumpirmahin ang Pagbabalik</h3>
+        <p class="text-slate-300 text-sm mb-6">
+            Kailangan mong pumunta sa library at iabot ang libro sa librarian para ma-proseso at mailipat sa status na <span class="text-blue-400 font-semibold">Returned</span>. Nais mo bang magpatuloy?
+        </p>
+        
+        <form id="returnForm" action="process_return.php" method="POST">
+            <input type="hidden" name="borrow_id" id="modalBorrowId" value="">
+            
+            <div class="flex justify-end gap-3">
+                <button type="button" onclick="closeReturnModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 text-sm font-medium rounded-lg transition">
+                    Kanselahin
+                </button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg shadow-lg shadow-blue-600/30 transition">
+                    Magtungo sa Library / I-proseso
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
     </main>
 
     <!-- Dark Mode Script -->
