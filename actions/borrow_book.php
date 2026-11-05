@@ -20,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['book_id'])) {
 
     try {
         // 1. I-insert ang record sa `transactions` table kasama ang tamang due_date at NULL return_date
-        $sqlTrans = "INSERT INTO transactions (book_id, member_id, borrow_date, due_date, return_date, status) 
-                     VALUES (:book_id, :member_id, NOW(), :due_date, NULL, 'Borrowed')";
+        $sqlTrans = "INSERT INTO transactions (book_id, user_id, borrow_date, due_date, return_date, status) 
+                     VALUES (:book_id, :user_id, NOW(), :due_date, NULL, 'Borrowed')";
         $stmtTrans =$conn->prepare($sqlTrans);$stmtTrans->execute([
             ':book_id' => $bookId,
-            ':member_id' => $userId,
+            ':user_id' => $userId,
             ':due_date' => $dueDate
         ]);
 

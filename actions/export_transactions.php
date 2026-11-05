@@ -13,7 +13,7 @@ fputcsv($output, ['TXN ID', 'Member ID', 'Book Title', 'Due Date', 'Status', 'Ov
 
 try {
     // Kunin ang lahat ng transactions mula sa database
-    $stmt = $conn->query("SELECT t.id as txn_id, t.member_id, b.title as book_title, t.due_date, t.status, t.fine as overdue_fine 
+    $stmt = $conn->query("SELECT t.id as txn_id, t.user_id, b.title as book_title, t.due_date, t.status, t.fine as overdue_fine 
                           FROM transactions t 
                           JOIN books b ON t.book_id = b.id 
                           ORDER BY t.borrow_date DESC");
@@ -22,7 +22,7 @@ try {
     foreach ($transactions as $txn) {
         fputcsv($output, [
             $txn['txn_id'],
-            $txn['member_id'],
+            $txn['user_id'],
             $txn['book_title'],
             $txn['due_date'],
             $txn['status'],

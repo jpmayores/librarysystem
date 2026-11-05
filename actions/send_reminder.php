@@ -5,7 +5,7 @@ try {
     // Kunin ang mga active transactions
     $sql = "SELECT t.*, u.username, b.title as book_title 
             FROM transactions t 
-            JOIN users u ON t.member_id = u.id 
+            JOIN users u ON t.user_id = u.id 
             JOIN books b ON t.book_id = b.id 
             WHERE t.status = 'Borrowed'";
     

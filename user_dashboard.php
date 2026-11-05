@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             $trans_stmt = $conn->prepare("
                 UPDATE transactions 
                 SET status = 'Returned', return_date = NOW() 
-                WHERE book_id = ? AND member_id = ? AND LOWER(status) = 'borrowed'
+                WHERE book_id = ? AND user_id = ? AND LOWER(status) = 'borrowed'
             ");
             $trans_stmt->execute([$book_id, $user_id]);
 
@@ -53,7 +53,7 @@ try {
     SELECT t.*, b.title, b.author, b.image_url, b.id AS book_id 
     FROM transactions t 
     JOIN books b ON t.book_id = b.id 
-    WHERE t.member_id = ? AND LOWER(t.status) = 'borrowed'
+    WHERE t.user_id = ? AND LOWER(t.status) = 'borrowed'
 ");
     $stmt->execute([$user_id]);
     $currently_borrowed = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -63,7 +63,7 @@ try {
     SELECT t.*, b.title, b.author 
     FROM transactions t 
     JOIN books b ON t.book_id = b.id 
-    WHERE t.member_id = ? 
+    WHERE t.user_id = ? 
     ORDER BY t.borrow_date DESC
 ");
     $history_stmt->execute([$user_id]);

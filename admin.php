@@ -49,7 +49,7 @@ try {
     $stmtTxn = $conn->query("
         SELECT 
             t.id AS txn_id, 
-            t.member_id, 
+            t.user_id, 
             t.book_id,
             b.title AS book_title, 
             t.due_date, 
@@ -70,13 +70,13 @@ if ($current_view === 'users') {
     $stmt = $conn->query("SELECT * FROM users ORDER BY id DESC");
     $usersList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } elseif ($current_view === 'transactions') {
-    $query = "SELECT t.id as txn_id, t.member_id, b.title as book_title, t.due_date, t.status, t.fine as overdue_fine 
+    $query = "SELECT t.id as txn_id, t.user_id, b.title as book_title, t.due_date, t.status, t.fine as overdue_fine 
               FROM transactions t 
               JOIN books b ON t.book_id = b.id WHERE 1=1";
     $params = [];
 
     if (!empty($search)) {
-        $query .= " AND (t.member_id LIKE ? OR b.title LIKE ?)";
+        $query .= " AND (t.user_id LIKE ? OR b.title LIKE ?)";
         $params[] = "%$search%";
         $params[] = "%$search%";
     }
@@ -301,7 +301,7 @@ if ($current_view === 'inventory') {
                             <?php foreach ($transactions as $txn): ?>
                                 <tr style="border-bottom: 1px solid #f1f5f9;">
                                     <td style="padding: 10px;">#<?= htmlspecialchars($txn['txn_id']); ?></td>
-                                    <td style="padding: 10px;"><strong><?= htmlspecialchars($txn['member_id']); ?></strong></td>
+                                    <td style="padding: 10px;"><strong><?= htmlspecialchars($txn['user_id']); ?></strong></td>
                                     <td style="padding: 10px;"><?= htmlspecialchars($txn['book_title']); ?></td>
                                     <td style="padding: 10px;"><?= htmlspecialchars($txn['due_date']); ?></td>
                                     <td style="padding: 10px;">

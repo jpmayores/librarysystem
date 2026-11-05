@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $conn->beginTransaction();
 
         // I-insert ang record sa transactions table
-        $trans_stmt = $conn->prepare("INSERT INTO transactions (book_id, member_id, borrow_date, due_date, return_date) VALUES (?, ?, ?, ?, NULL)");
+        $trans_stmt = $conn->prepare("INSERT INTO transactions (book_id, user_id, borrow_date, due_date, return_date) VALUES (?, ?, ?, ?, NULL)");
         $trans_stmt->execute([$book_id, $user_id, $borrow_date, $due_date]);
 
         // I-update ang status ng libro sa books table para maging 'Borrowed'
