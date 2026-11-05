@@ -24,23 +24,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $conn->prepare("SELECT fine FROM transactions WHERE id = ?");
             $stmt->execute([$txnId]);
             $txn = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             $currentFine = isset($txn['fine']) ? floatval($txn['fine']) : 0.00;
             $totalFine = $currentFine + $damageFee;
 
             // 2. I-update ang transaction: status patungong 'Returned', itala ang condition_status at total fine
-            $updateTxn = $conn->prepare("UPDATE transactions SET status = 'Returned', condition_status = ?, fine = ? WHERE id = ?");
+            $updateTxn = $conn->prepare("UPDATE transactions SET status = 'Returned', returned_date = NOW(), condition_status = ?, fine = ? WHERE id = ?");
             $updateTxn->execute([$condition, $totalFine, $txnId]);
 
             // 3. I-update ang status ng libro sa inventory ('Damaged' o 'Available')
             $bookStatus = ($condition === 'Damaged') ? 'Damaged' : 'Available';
             $updateBook = $conn->prepare("UPDATE books SET status = ? WHERE id = ?");
             $updateBook->execute([$bookStatus, $bookId]);
-                 
+
             // 3. i-RECORD SA AUDIT LOG
             $logAction = $conn->prepare("INSERT INTO audit_logs (action, details) VALUES (?, ?)");
             $logAction->execute([
-                'Book Return Processed', 
+                'Book Return Processed',
                 "Transaction ID: $txnId, Book ID: $bookId, Condition: $condition, Total Fine Added/Updated: ₱$totalFine"
             ]);
         } catch (Exception $e) {
