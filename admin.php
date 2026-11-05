@@ -511,6 +511,30 @@ if ($current_view === 'inventory') {
         </div>
     </div>
     <script src="asset/script.js"></script>
+    <script>
+        function openReturnModal(txnId, bookId) {
+        // Kunin ang modal at mga hidden input
+        const modal = document.getElementById('returnBookModal');
+        const txnInput = document.getElementById('return_txn_id');
+        const bookInput = document.getElementById('return_book_id');
+        
+        // Ipasok ang mga ID
+        if (txnInput) txnInput.value = txnId;
+        if (bookInput) bookInput.value = bookId;
+        
+        // Ipakita ang modal
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    }
+
+    function closeReturnModal() {
+        const modal = document.getElementById('returnBookModal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+    </script>
 </body>
 
 </html>
