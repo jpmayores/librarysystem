@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             // Tawagin na ang function dahil nakarehistro na ito sa itaas
             $emailResult = sendBorrowConfirmationEmail(
                 $userInfo['email'], 
-                $userInfo['name'], 
+                $userInfo['username'], 
                 $bookInfo['title'], 
                 $borrow_days, 
                 $due_date
