@@ -268,7 +268,7 @@ try {
                                 <input type="hidden" name="book_id"
                                     value="<?= htmlspecialchars($borrowed['book_id'] ?? $borrowed['id'] ?? ''); ?>">
                                 <input type="hidden" name="action" value="return_book">
-                            <button type="button" onclick="openReturnModal('<?php echo $history['borrow_id']; ?>')" style="padding: 0.25rem 0.75rem; background-color: #2563eb; color: #ffffff; font-size: 0.75rem; font-weight: 600; border-radius: 0.375rem; border: none; cursor: pointer;">
+                     <button type="button" onclick="openReturnModal('<?php echo htmlspecialchars($history['borrow_id'] ?? $history['id'] ?? ''); ?>')" style="padding: 0.25rem 0.75rem; background-color: #2563eb; color: #ffffff; font-size: 0.75rem; font-weight: 600; border-radius: 0.375rem; border: none; cursor: pointer;">
     Return
 </button>
                             </form>
@@ -360,7 +360,7 @@ try {
 <!-- Update trigger -->
     <!-- Dark Mode Script -->
     <script>
-       function openReturnModal(borrowId) {
+    function openReturnModal(borrowId) {
         const modal = document.getElementById('returnModal');
         const modalBorrowId = document.getElementById('modalBorrowId');
         modalBorrowId.value = borrowId;
