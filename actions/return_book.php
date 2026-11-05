@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $totalFine = $currentFine + $damageFee;
 
             // 2. I-update ang transaction: status patungong 'Returned', itala ang condition_status at total fine
-            $updateTxn = $conn->prepare("UPDATE transactions SET status = 'Returned', returned_date = NOW(), condition_status = ?, fine = ? WHERE id = ?");
+            $updateTxn = $conn->prepare("UPDATE transactions SET status = 'Returned', return_date = NOW(), condition_status = ?, fine = ? WHERE id = ?");
             $updateTxn->execute([$condition, $totalFine, $txnId]);
 
             // 3. I-update ang status ng libro sa inventory ('Damaged' o 'Available')
