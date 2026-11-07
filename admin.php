@@ -131,65 +131,68 @@ if ($current_view === 'inventory') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <style>
-    
+
 </style>
+
 <body>
 
     <!-- Left Sidebar -->
     <div class="sidebar">
-
+        <div>
             <h2>Admin Panel</h2>
-          <nav>
-    <a href="admin.php?view=inventory" class="<?= ($current_view === 'inventory') ? 'active' : ''; ?>">
-        <i class="fa-solid fa-boxes-stacked"></i> Inventory
-    </a>
-    <a href="admin.php?view=transactions" class="<?= ($current_view === 'transactions') ? 'active' : ''; ?>">
-        <i class="fa-solid fa-right-left"></i> Transactions
-    </a>
-    <a href="admin.php?view=users" class="<?= ($current_view === 'users') ? 'active' : ''; ?>">
-        <i class="fa-solid fa-users"></i> Users Management
-    </a>
-    <a href="admin.php?view=audit_logs" class="<?= ($current_view === 'audit_logs') ? 'active' : ''; ?>">
-        <i class="fa-solid fa-clock-rotate-left"></i> Audit Logs
-    </a>
-</nav>
-<a href="actions/logout.php" class="logout-btn">
-    <i class="fa-solid fa-right-from-bracket"></i> Log Out
-</a>
+            <nav>
+                <a href="admin.php?view=inventory" class="<?= ($current_view === 'inventory') ? 'active' : ''; ?>">
+                    <i class="fa-solid fa-boxes-stacked"></i> Inventory
+                </a>
+                <a href="admin.php?view=transactions"
+                    class="<?= ($current_view === 'transactions') ? 'active' : ''; ?>">
+                    <i class="fa-solid fa-right-left"></i> Transactions
+                </a>
+                <a href="admin.php?view=users" class="<?= ($current_view === 'users') ? 'active' : ''; ?>">
+                    <i class="fa-solid fa-users"></i> Users Management
+                </a>
+                <a href="admin.php?view=audit_logs" class="<?= ($current_view === 'audit_logs') ? 'active' : ''; ?>">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Audit Logs
+                </a>
+            </nav>
+        </div>
+        <a href="actions/logout.php" class="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i> Log Out
+        </a>
     </div>
 
     <!-- Main Content Area -->
-<?php if (isset($_GET['view']) && $_GET['view'] !== 'audit_logs'): ?>
-    <div class="main-content">
-        <div class="header-container">
-            <div>
-                <h1>Control Dashboard</h1>
-                <p>Manage system records, books, and metrics.</p>
+    <?php if (isset($_GET['view']) && $_GET['view'] !== 'audit_logs'): ?>
+        <div class="main-content">
+            <div class="header-container">
+                <div>
+                    <h1>Control Dashboard</h1>
+                    <p>Manage system records, books, and metrics.</p>
+                </div>
+                <button type="button" class="btn-primary" onclick="openAddModal()">+ Add New Book</button>
             </div>
-            <button type="button" class="btn-primary" onclick="openAddModal()">+ Add New Book</button>
-        </div>
-<?php endif; ?>
+        <?php endif; ?>
         <!-- 4 Cards sa Itaas -->
-         <?php if (isset($_GET['view']) && $_GET['view'] !== 'audit_logs'): ?>
-        <div class="stats-grid">
-            <div class="card">
-                <span>Total Books</span>
-                <h3><?= $total_books; ?></h3>
+        <?php if (isset($_GET['view']) && $_GET['view'] !== 'audit_logs'): ?>
+            <div class="stats-grid">
+                <div class="card">
+                    <span>Total Books</span>
+                    <h3><?= $total_books; ?></h3>
+                </div>
+                <div class="card available">
+                    <span>Available</span>
+                    <h3><?= $available_books; ?></h3>
+                </div>
+                <div class="card borrowed">
+                    <span>Borrowed</span>
+                    <h3><?= $borrowed_books; ?></h3>
+                </div>
+                <div class="card fines">
+                    <span>Pending Fines</span>
+                    <h3>₱0</h3>
+                </div>
             </div>
-            <div class="card available">
-                <span>Available</span>
-                <h3><?= $available_books; ?></h3>
-            </div>
-            <div class="card borrowed">
-                <span>Borrowed</span>
-                <h3><?= $borrowed_books; ?></h3>
-            </div>
-            <div class="card fines">
-                <span>Pending Fines</span>
-                <h3>₱0</h3>
-            </div>
-        </div>
-<?php endif; ?>
+        <?php endif; ?>
         <div class="admin-main" style="flex: 1; padding: 30px; background: #f8fafc;">
 
             <!-- 1. INVENTORY VIEW -->
@@ -389,43 +392,43 @@ if ($current_view === 'inventory') {
 
     </div>
     </div>
-   <?php if (isset($_GET['view']) && $_GET['view'] === 'audit_logs'): ?>
-    
-    <div class="audit-logs-container">
-        <h3 class="audit-logs-title">Admin Audit Logs</h3>
-     <table class="audit-logs-table">
-    <thead>
-        <tr>
-            <th class="col-id">ID</th>
-            <th class="col-action">Aksyon</th>
-            <th class="col-details">Detalye</th>
-            <th class="col-date">Oras</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php 
-        $stmtLogs = $conn->query("SELECT * FROM audit_logs ORDER BY created_at DESC LIMIT 50");
-        $logs = $stmtLogs->fetchAll(PDO::FETCH_ASSOC);
-        ?>
-        <?php if (!empty($logs) && count($logs) > 0): ?>
-            <?php foreach ($logs as $log): ?>
-                <tr>
-                    <td class="col-id">#<?= $log['id']; ?></td>
-                    <td class="col-action"><?= htmlspecialchars($log['action']); ?></td>
-                    <td class="col-details"><?= htmlspecialchars($log['details']); ?></td>
-                    <td class="col-date"><?= $log['created_at']; ?></td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="4" class="audit-logs-empty">Wala pang naka-record na log.</td>
-            </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
-    </div>
+    <?php if (isset($_GET['view']) && $_GET['view'] === 'audit_logs'): ?>
 
-<?php endif; ?>
+        <div class="audit-logs-container">
+            <h3 class="audit-logs-title">Admin Audit Logs</h3>
+            <table class="audit-logs-table">
+                <thead>
+                    <tr>
+                        <th class="col-id">ID</th>
+                        <th class="col-action">Aksyon</th>
+                        <th class="col-details">Detalye</th>
+                        <th class="col-date">Oras</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $stmtLogs = $conn->query("SELECT * FROM audit_logs ORDER BY created_at DESC LIMIT 50");
+                    $logs = $stmtLogs->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    <?php if (!empty($logs) && count($logs) > 0): ?>
+                        <?php foreach ($logs as $log): ?>
+                            <tr>
+                                <td class="col-id">#<?= $log['id']; ?></td>
+                                <td class="col-action"><?= htmlspecialchars($log['action']); ?></td>
+                                <td class="col-details"><?= htmlspecialchars($log['details']); ?></td>
+                                <td class="col-date"><?= $log['created_at']; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4" class="audit-logs-empty">Wala pang naka-record na log.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+
+    <?php endif; ?>
 
     <!-- Edit Book Modal -->
     <div id="editBookModal"
@@ -520,27 +523,27 @@ if ($current_view === 'inventory') {
     <script src="asset/script.js"></script>
     <script>
         function openReturnModal(txnId, bookId) {
-        // Kunin ang modal at mga hidden input
-        const modal = document.getElementById('returnBookModal');
-        const txnInput = document.getElementById('return_txn_id');
-        const bookInput = document.getElementById('return_book_id');
-        
-        // Ipasok ang mga ID
-        if (txnInput) txnInput.value = txnId;
-        if (bookInput) bookInput.value = bookId;
-        
-        // Ipakita ang modal
-        if (modal) {
-            modal.style.display = 'flex';
-        }
-    }
+            // Kunin ang modal at mga hidden input
+            const modal = document.getElementById('returnBookModal');
+            const txnInput = document.getElementById('return_txn_id');
+            const bookInput = document.getElementById('return_book_id');
 
-    function closeReturnModal() {
-        const modal = document.getElementById('returnBookModal');
-        if (modal) {
-            modal.style.display = 'none';
+            // Ipasok ang mga ID
+            if (txnInput) txnInput.value = txnId;
+            if (bookInput) bookInput.value = bookId;
+
+            // Ipakita ang modal
+            if (modal) {
+                modal.style.display = 'flex';
+            }
         }
-    }
+
+        function closeReturnModal() {
+            const modal = document.getElementById('returnBookModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
     </script>
 </body>
 
