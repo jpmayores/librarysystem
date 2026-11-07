@@ -34,7 +34,7 @@ try {
     $conn->commit();
     header('Location: user_dashboard.php?borrow=success');
     exit();
-
+}
 } catch (Exception $e) {
     $conn->rollBack();
     echo "Error: " . $e->getMessage();
