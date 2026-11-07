@@ -222,7 +222,7 @@ if ($current_view === 'inventory') {
     </div>
 
     <!-- Main Content Area -->
-    <?php if (isset($_GET['view']) && $_GET['view'] !== 'audit_logs'): ?>
+   <?php if ($current_view !== 'audit_logs'): ?>
         <div class="main-content">
             <div class="header-container">
                 <div>
