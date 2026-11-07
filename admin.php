@@ -174,24 +174,39 @@ if ($current_view === 'inventory') {
         <?php endif; ?>
         <!-- 4 Cards sa Itaas -->
         <?php if (isset($_GET['view']) && $_GET['view'] !== 'audit_logs'): ?>
-            <div class="stats-grid">
-                <div class="card">
-                    <span>Total Books</span>
-                    <h3><?= $total_books; ?></h3>
-                </div>
-                <div class="card available">
-                    <span>Available</span>
-                    <h3><?= $available_books; ?></h3>
-                </div>
-                <div class="card borrowed">
-                    <span>Borrowed</span>
-                    <h3><?= $borrowed_books; ?></h3>
-                </div>
-                <div class="card fines">
-                    <span>Pending Fines</span>
-                    <h3>₱0</h3>
-                </div>
-            </div>
+           <div class="stats-grid">
+    <div class="card stat-total">
+        <div class="stat-icon"><i class="fa-solid fa-book"></i></div>
+        <div class="stat-info">
+            <span>Total Books</span>
+            <h3><?= $total_books; ?></h3>
+        </div>
+    </div>
+    
+    <div class="card stat-available">
+        <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="stat-info">
+            <span>Available</span>
+            <h3><?= $available_books; ?></h3>
+        </div>
+    </div>
+    
+    <div class="card stat-borrowed">
+        <div class="stat-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+        <div class="stat-info">
+            <span>Borrowed</span>
+            <h3><?= $borrowed_books; ?></h3>
+        </div>
+    </div>
+    
+    <div class="card stat-fines">
+        <div class="stat-icon"><i class="fa-solid fa-peso-sign"></i></div>
+        <div class="stat-info">
+            <span>Pending Fines</span>
+            <h3>₱0</h3>
+        </div>
+    </div>
+</div>
         <?php endif; ?>
         <div class="admin-main" style="flex: 1; padding: 30px; background: #f8fafc;">
 
