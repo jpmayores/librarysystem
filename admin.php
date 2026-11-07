@@ -460,7 +460,14 @@ if ($current_view === 'inventory') {
                 <i class="fa-solid fa-users" style="color: #4f46e5;"></i> Registered Users Management
             </h2>
         </div>
-
+<form method="GET" action="admin.php" style="display: flex; gap: 10px; margin: 0;">
+                <input type="hidden" name="view" value="users">
+                <input type="text" name="search_user" placeholder="Search username or email..." 
+                       value="<?= htmlspecialchars($_GET['search_user'] ?? '') ?>" 
+                       style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 250px;">
+                <button type="submit" class="btn-primary" style="padding: 8px 16px; background: #1e293b; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Search</button>
+            </form>
+        </div>
         <!-- Stat Card -->
         <div>
             <div style="background: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: inline-block; min-width: 200px;">
