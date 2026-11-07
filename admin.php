@@ -128,6 +128,7 @@ if ($current_view === 'inventory') {
     <title>Admin Panel - Library System</title>
 
     <link rel="stylesheet" href="asset/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <style>
     
@@ -136,19 +137,25 @@ if ($current_view === 'inventory') {
 
     <!-- Left Sidebar -->
     <div class="sidebar">
-        <div>
+
             <h2>Admin Panel</h2>
-            <nav>
-                <a href="admin.php?view=inventory"
-                    class="<?= ($current_view === 'inventory') ? 'active' : ''; ?>">Inventory</a>
-                <a href="admin.php?view=transactions"
-                    class="<?= ($current_view === 'transactions') ? 'active' : ''; ?>">Transactions</a>
-                <a href="admin.php?view=users" class="<?= ($current_view === 'users') ? 'active' : ''; ?>">Users
-                    Management</a>
-                      <a href="admin.php?view=audit_logs" class="<?= ($current_view === 'audit_logs') ? 'active' : ''; ?>">Audit Logs</a>
-            </nav>
-        </div>
-        <a href="actions/logout.php" class="logout-btn"> Log Out</a>
+          <nav>
+    <a href="admin.php?view=inventory" class="<?= ($current_view === 'inventory') ? 'active' : ''; ?>">
+        <i class="fa-solid fa-boxes-stacked"></i> Inventory
+    </a>
+    <a href="admin.php?view=transactions" class="<?= ($current_view === 'transactions') ? 'active' : ''; ?>">
+        <i class="fa-solid fa-right-left"></i> Transactions
+    </a>
+    <a href="admin.php?view=users" class="<?= ($current_view === 'users') ? 'active' : ''; ?>">
+        <i class="fa-solid fa-users"></i> Users Management
+    </a>
+    <a href="admin.php?view=audit_logs" class="<?= ($current_view === 'audit_logs') ? 'active' : ''; ?>">
+        <i class="fa-solid fa-clock-rotate-left"></i> Audit Logs
+    </a>
+</nav>
+<a href="actions/logout.php" class="logout-btn">
+    <i class="fa-solid fa-right-from-bracket"></i> Log Out
+</a>
     </div>
 
     <!-- Main Content Area -->
