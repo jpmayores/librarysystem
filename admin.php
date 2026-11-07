@@ -222,7 +222,7 @@ if ($current_view === 'inventory') {
     </div>
 
     <!-- Main Content Area -->
-   <?php if ($current_view !== 'audit_logs'): ?>
+  <?php if ($current_view === 'inventory'): ?>
         <div class="main-content">
             <div class="header-container">
                 <div>
@@ -233,7 +233,7 @@ if ($current_view === 'inventory') {
             </div>
         <?php endif; ?>
         <!-- 4 Cards sa Itaas -->
-        <?php if ($current_view !== 'audit_logs'): ?>
+      <?php if ($current_view === 'inventory'): ?>
            <div class="stats-grid">
     <div class="card stat-total">
         <div class="stat-icon"><i class="fa-solid fa-book"></i></div>
