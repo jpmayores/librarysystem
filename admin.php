@@ -430,7 +430,8 @@ if ($current_view === 'inventory') {
     </h2>
 </div>
 
-        <form method="GET" action="admin.php" style="display: flex; gap: 10px;">
+      <!-- Search Bar -->
+        <form method="GET" action="admin.php" style="display: flex; gap: 10px; margin: 0;">
             <input type="hidden" name="view" value="users">
             <input type="text" name="search_user" placeholder="Search username or email..." 
                    value="<?= htmlspecialchars($_GET['search_user'] ?? '') ?>" 
@@ -438,21 +439,23 @@ if ($current_view === 'inventory') {
             <button type="submit" class="btn-primary" style="padding: 8px 16px; background: #1e293b; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Search</button>
         </form>
     </div>
+
+    <!-- Stats Card -->
     <div style="margin-bottom: 20px;">
         <div style="background: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: inline-block; min-width: 200px;">
             <span style="color: #64748b; font-size: 14px;">Total Registered Users</span>
             <h3 style="margin: 5px 0 0 0; color: #1e293b;"><?= count($usersList); ?></h3>
         </div>
     </div>
-           <div class="history-card-container" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+
+    <div class="history-card-container" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
         <table class="history-table" style="width: 100%; border-collapse: collapse;">
-                    <thead>
-                        <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
-                            <th style="padding: 10px;">User ID</th>
-                            <th style="padding: 10px;">Username</th>
-                            <th style="padding: 10px;">Email / Details</th>
-                            <th style="padding: 10px;">Date Registered</th>
-                        </tr>
+            <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
+                <th style="padding: 10px;">User ID</th>
+                <th style="padding: 10px;">Username</th>
+                <th style="padding: 10px;">Email / Details</th>
+                <th style="padding: 10px;">Date Registered</th>
+            </tr>
                     </thead>
                     <tbody>
                         <?php if (!empty($usersList)): ?>
