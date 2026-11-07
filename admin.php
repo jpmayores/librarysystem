@@ -452,29 +452,35 @@ if ($current_view === 'inventory') {
 
         <!-- 3. USERS VIEW -->
         <?php if ($current_view === 'users'): ?>
-            <div style="display: flex; flex-direction: column; width: 100%; gap: 20px;">
-                <!-- Header at Search Bar -->
-                <div
-                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                    <h2 class="portal-catalog-title" style="display: flex; align-items: center; gap: 10px; margin: 0;">
-                        <i class="fa-solid fa-users" style="color: #4f46e5;"></i> Registered Users Management
-                    </h2>
+         <div style="display: flex; flex-direction: column; width: 100%; gap: 20px;">
+        
+        <!-- Header Container -->
+        <div style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <h2 class="portal-catalog-title" style="display: flex; align-items: center; gap: 10px; margin: 0;">
+                <i class="fa-solid fa-users" style="color: #4f46e5;"></i> Registered Users Management
+            </h2>
+        </div>
 
+        <!-- Stat Card -->
+        <div>
+            <div style="background: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: inline-block; min-width: 200px;">
+                <span style="color: #64748b; font-size: 14px;">Total Registered Users</span>
+                <h3 style="margin: 5px 0 0 0; color: #1e293b;"><?= count($usersList); ?></h3>
+            </div>
+        </div>
 
-
-                    <!-- Table Container -->
-                    <div
-                        class="history-card-container" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                        <table class="history-table" style="width: 100%; border-collapse: collapse;">
-                            <thead>
-                                <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
-                                    <th style="padding: 10px;">User ID</th>
-                                    <th style="padding: 10px;">Username</th>
-                                    <th style="padding: 10px;">Email / Details</th>
-                                    <th style="padding: 10px;">Date Registered</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+        <!-- Table Container -->
+        <div class="history-card-container" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <table class="history-table" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
+                        <th style="padding: 10px;">User ID</th>
+                        <th style="padding: 10px;">Username</th>
+                        <th style="padding: 10px;">Email / Details</th>
+                        <th style="padding: 10px;">Date Registered</th>
+                    </tr>
+                </thead>
+                <tbody>
                                 <?php if (!empty($usersList)): ?>
                                     <?php foreach ($usersList as $usr): ?>
                                         <tr style="border-bottom: 1px solid #f1f5f9;">
