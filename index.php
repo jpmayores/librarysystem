@@ -33,29 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $book_stmt->execute([$book_id]);
 
         // Kunin ang info ng user at book para sa email
-        $userEmailQuery = $conn->prepare("SELECT username, email FROM users WHERE id = ?");
-        $userEmailQuery->execute([$user_id]);
-        $userInfo = $userEmailQuery->fetch(PDO::FETCH_ASSOC);
+        //$userEmailQuery = $conn->prepare("SELECT username, email FROM users WHERE id = ?");
+       // $userEmailQuery->execute([$user_id]);
+       // $userInfo = $userEmailQuery->fetch(PDO::FETCH_ASSOC);
 
         $bookTitleQuery = $conn->prepare("SELECT title FROM books WHERE id = ?");
         $bookTitleQuery->execute([$book_id]);
         $bookInfo = $bookTitleQuery->fetch(PDO::FETCH_ASSOC);
-
-        if ($userInfo && $bookInfo) {
-            // Tawagin na ang function dahil nakarehistro na ito sa itaas
-            $emailResult = sendBorrowConfirmationEmail(
-                $userInfo['email'], 
-                $userInfo['username'], 
-                $bookInfo['title'], 
-                $borrow_days, 
-                $due_date
-            );
-
-            if ($emailResult !== true) {
-                // I-log kung sakaling may issue sa pagpapadala
-                error_log("Email sending failed: " . $emailResult);
-            }
-        }
 
         $conn->commit();
         header('Location: user_dashboard.php?borrow=success');
