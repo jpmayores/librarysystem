@@ -444,9 +444,8 @@ if ($current_view === 'inventory') {
             <h3 style="margin: 5px 0 0 0; color: #1e293b;"><?= count($usersList); ?></h3>
         </div>
     </div>
-            <div class="history-card-container"
-                style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                <table class="history-table" style="width: 100%; border-collapse: collapse;">
+           <div class="history-card-container" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <table class="history-table" style="width: 100%; border-collapse: collapse;">
                     <thead>
                         <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
                             <th style="padding: 10px;">User ID</th>
