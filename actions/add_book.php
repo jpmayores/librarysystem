@@ -2,8 +2,8 @@
 session_start();
 require_once '../config/db.php';
 
-$supabaseUrl = "https://pkqtfclzadmejdfzyxxu.supabase.co"; // Palitan ng iyong Supabase URL
-$supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBrcXRmY2x6YWRtZWpkZnp5eHh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwNTUxNTEsImV4cCI6MjA5MTYzMTE1MX0.HJjhoiv_24jQPrkEA8hkOr5VZHypjJFxADB8LHk-3Wc";   // Palitan ng iyong Supabase Key
+$supabaseUrl = getenv("https://pkqtfclzadmejdfzyxxu.supabase.co"); // Palitan ng iyong Supabase URL
+$supabaseKey = getenv("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBrcXRmY2x6YWRtZWpkZnp5eHh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwNTUxNTEsImV4cCI6MjA5MTYzMTE1MX0.HJjhoiv_24jQPrkEA8hkOr5VZHypjJFxADB8LHk-3Wc");   // Palitan ng iyong Supabase Key
 $bucketName = "book-covers";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
