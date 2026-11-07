@@ -20,37 +20,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
     $borrow_date = date('Y-m-d H:i:s');
     $due_date = date('Y-m-d H:i:s', strtotime("+{$borrow_days} days"));
+try {
+    $conn->beginTransaction();
 
-    try {
-        $conn->beginTransaction();
+    // 1. I-insert ang record sa transactions table
+    $trans_stmt = $conn->prepare("INSERT INTO transactions (book_id, user_id, borrow_date, due_date, status) VALUES (?, ?, ?, ?, 'Borrowed')");
+    $trans_stmt->execute([$book_id, $user_id, $borrow_date, $due_date]);
 
-        // I-insert ang record sa transactions table
-        $trans_stmt = $conn->prepare("INSERT INTO transactions (book_id, user_id, borrow_date, due_date, return_date) VALUES (?, ?, ?, ?, NULL)");
-        $trans_stmt->execute([$book_id, $user_id, $borrow_date, $due_date]);
+    // 2. I-update ang status ng libro sa books table para maging 'Borrowed' (Ito ang nag-aalis sa 'Available' status sa catalog/admin)
+    $book_stmt = $conn->prepare("UPDATE books SET status = 'Borrowed' WHERE id = ?");
+    $book_stmt->execute([$book_id]);
 
-        // I-update ang status ng libro sa books table para maging 'Borrowed'
-        $book_stmt = $conn->prepare("UPDATE books SET status = 'Borrowed' WHERE id = ?");
-        $book_stmt->execute([$book_id]);
+    $conn->commit();
+    header('Location: user_dashboard.php?borrow=success');
+    exit();
 
-        // Kunin ang info ng user at book para sa email
-        //$userEmailQuery = $conn->prepare("SELECT username, email FROM users WHERE id = ?");
-       // $userEmailQuery->execute([$user_id]);
-       // $userInfo = $userEmailQuery->fetch(PDO::FETCH_ASSOC);
-
-        $bookTitleQuery = $conn->prepare("SELECT title FROM books WHERE id = ?");
-        $bookTitleQuery->execute([$book_id]);
-        $bookInfo = $bookTitleQuery->fetch(PDO::FETCH_ASSOC);
-
-        $conn->commit();
-        header('Location: user_dashboard.php?borrow=success');
-        exit();
-
-    } catch (Exception $e) {
-        $conn->rollBack();
-        echo "Error: " . $e->getMessage();
-    }
+} catch (Exception $e) {
+    $conn->rollBack();
+    echo "Error: " . $e->getMessage();
 }
-
 // Kunin ang listahan ng mga libro
 try {
     $stmt = $conn->prepare("SELECT * FROM books");
