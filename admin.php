@@ -18,13 +18,9 @@ $current_view = $_GET['view'] ?? 'inventory';
 
 
 $usersList = [];
+$usersList = [];
 if ($current_view === 'users') {
-    try {
-        $stmt = $conn->query("SELECT * FROM users ORDER BY id DESC");
-        $usersList = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        $usersList = [];
-    }
+    include('config/users_backend.php');
 }
 // Kunin ang mga libro
 $stmtBooks = $conn->query("SELECT * FROM books ORDER BY id DESC");
@@ -393,7 +389,7 @@ if ($current_view === 'inventory') {
                         <!-- Button para sa CSV Export -->
                         <a href="actions/export_transactions.php"
                             style="padding: 8px 16px; background: #10b981; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 14px;">
-                            I-export sa Excel (CSV)
+                                EXPORT (CSV)
                         </a>
                     </div>
                 </div>
@@ -452,6 +448,8 @@ if ($current_view === 'inventory') {
 
         <!-- 3. USERS VIEW -->
         <?php if ($current_view === 'users'): ?>
+         
+
          <div style="display: flex; flex-direction: column; width: 100%; gap: 20px;">
         
         <!-- 1. Header kasama ang Title at Search Bar sa iisang row -->
