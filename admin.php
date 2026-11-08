@@ -454,13 +454,14 @@ if ($current_view === 'inventory') {
         <?php if ($current_view === 'users'): ?>
          <div style="display: flex; flex-direction: column; width: 100%; gap: 20px;">
         
-        <!-- Header Container -->
+        <!-- 1. Header kasama ang Title at Search Bar sa iisang row -->
         <div style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <h2 class="portal-catalog-title" style="display: flex; align-items: center; gap: 10px; margin: 0;">
                 <i class="fa-solid fa-users" style="color: #4f46e5;"></i> Registered Users Management
             </h2>
-        </div>
-<form method="GET" action="admin.php" style="display: flex; gap: 10px; margin: 0;">
+            
+            <!-- Search Bar -->
+            <form method="GET" action="admin.php" style="display: flex; gap: 10px; margin: 0;">
                 <input type="hidden" name="view" value="users">
                 <input type="text" name="search_user" placeholder="Search username or email..." 
                        value="<?= htmlspecialchars($_GET['search_user'] ?? '') ?>" 
@@ -468,7 +469,8 @@ if ($current_view === 'inventory') {
                 <button type="submit" class="btn-primary" style="padding: 8px 16px; background: #1e293b; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Search</button>
             </form>
         </div>
-        <!-- Stat Card -->
+
+        <!-- 2. Stat Card sa itaas ng Table -->
         <div>
             <div style="background: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: inline-block; min-width: 200px;">
                 <span style="color: #64748b; font-size: 14px;">Total Registered Users</span>
@@ -476,7 +478,7 @@ if ($current_view === 'inventory') {
             </div>
         </div>
 
-        <!-- Table Container -->
+        <!-- 3. Table at Pagination Container -->
         <div class="history-card-container" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
             <table class="history-table" style="width: 100%; border-collapse: collapse;">
                 <thead>
@@ -488,35 +490,38 @@ if ($current_view === 'inventory') {
                     </tr>
                 </thead>
                 <tbody>
-                                <?php if (!empty($usersList)): ?>
-                                    <?php foreach ($usersList as $usr): ?>
-                                        <tr style="border-bottom: 1px solid #f1f5f9;">
-                                            <td style="padding: 10px;">
-                                                <?= htmlspecialchars($usr['id']); ?>
-                                            </td>
-                                            <td style="padding: 10px; font-weight: 600;">
-                                                <?= htmlspecialchars($usr['username']); ?>
-                                            </td>
-                                            <td style="padding: 10px;">
-                                                <?= isset($usr['email']) ? htmlspecialchars($usr['email']) : 'N/A'; ?>
-                                            </td>
-                                            <td style="padding: 10px;">
-                                                <?= isset($usr['created_at']) ? htmlspecialchars($usr['created_at']) : 'N/A'; ?>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <tr>
-                                    <td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">No Registered
-                                        User
-                                        Found
-                                    </td>
-                                    </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                <?php endif; ?>
+                    <?php if (!empty($usersList)): ?>
+                        <?php foreach ($usersList as $usr): ?>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 10px;"><?= htmlspecialchars($usr['id']); ?></td>
+                                <td style="padding: 10px; font-weight: 600;"><?= htmlspecialchars($usr['username']); ?></td>
+                                <td style="padding: 10px;"><?= isset($usr['email']) ? htmlspecialchars($usr['email']) : 'N/A'; ?></td>
+                                <td style="padding: 10px;"><?= isset($usr['created_at']) ? htmlspecialchars($usr['created_at']) : 'N/A'; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">No Registered Users Found</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+
+            <!-- Pagination UI -->
+            <?php if (isset($totalPages) && $totalPages > 1): ?>
+                <div style="display: flex; justify-content: center; gap: 5px; margin-top: 20px;">
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <a href="admin.php?view=users&page=<?= $i; ?><?= isset($_GET['search_user']) ? '&search_user=' . urlencode($_GET['search_user']) : ''; ?>" 
+                           style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none; background: <?= (isset($_GET['page']) && $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1) ? '#1e293b' : '#fff'; ?>; color: <?= (isset($_GET['page']) && $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1) ? '#fff' : '#1e293b'; ?>;">
+                            <?= $i; ?>
+                        </a>
+                    <?php endfor; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+    </div>
+<?php endif; ?>
 
             </div>
         </div>
