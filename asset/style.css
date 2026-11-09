@@ -312,6 +312,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     margin-top: 20px;
     width: 100%;
+    min-height: 400px; /* Nagbibigay ng sapat na espasyo para hindi biglang lumiit/lumaki */
     box-sizing: border-box;
 }
 
@@ -326,7 +327,7 @@ body {
 .audit-logs-table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed; /* Mahalaga ito para sumunod ang mga selda sa tinakdang lapad */
+    table-layout: fixed; 
     font-size: 14px;
     text-align: left;
 }
@@ -370,8 +371,9 @@ body {
 .audit-logs-empty {
     text-align: center;
     color: #64748b;
-    padding: 30px !important;
+    padding: 40px !important;
     font-style: italic;
+    background-color: #fafafa;
 }
 
 

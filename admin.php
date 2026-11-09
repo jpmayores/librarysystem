@@ -6,12 +6,12 @@ if (!isset($_SESSION['isAdminLoggedIn']) || $_SESSION['isAdminLoggedIn'] !== tru
     exit();
 }
 $logs = [];
-if (isset($_GET['view']) && $_GET['view'] === 'audit_logs') {
+if (isset($current_view) && $current_view === 'audit_logs') {
     try {
         $stmtLogs = $conn->query("SELECT * FROM audit_logs ORDER BY created_at DESC LIMIT 50");
         $logs = $stmtLogs->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
-        $logs = [];
+        $logs = []; // Kung sakaling may error o wala pang table
     }
 }
 $current_view = $_GET['view'] ?? 'inventory';
@@ -559,33 +559,22 @@ if ($current_view === 'inventory') {
                         <th class="col-date">Oras</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php
-                    $stmtLogs = $conn->query("SELECT * FROM audit_logs ORDER BY created_at DESC LIMIT 50");
-                    $logs = $stmtLogs->fetchAll(PDO::FETCH_ASSOC);
-                    ?>
-                    <?php if (!empty($logs) && count($logs) > 0): ?>
-                        <?php foreach ($logs as $log): ?>
-                            <tr>
-                                <td class="col-id">#
-                                    <?= $log['id']; ?>
-                                </td>
-                                <td class="col-action">
-                                    <?= htmlspecialchars($log['action']); ?>
-                                </td>
-                                <td class="col-details">
-                                    <?= htmlspecialchars($log['details']); ?>
-                                </td>
-                                <td class="col-date"><?= $log['created_at']; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="4" class="audit-logs-empty">Wala pang naka-record na log.</td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
+              <tbody>
+    <?php if (!empty($logs)): ?>
+        <?php foreach ($logs as $log): ?>
+            <tr>
+                <td class="col-id">#<?= htmlspecialchars($log['id']); ?></td>
+                <td class="col-action"><?= htmlspecialchars($log['action'] ?? ''); ?></td>
+                <td class="col-details"><?= htmlspecialchars($log['details'] ?? ''); ?></td>
+                <td class="col-date"><?= htmlspecialchars($log['created_at'] ?? ''); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="4" class="audit-logs-empty">Wala pang naka-record na log.</td>
+        </tr>
+    <?php endif; ?>
+</tbody>
             </table>
         </div>
 
