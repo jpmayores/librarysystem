@@ -37,4 +37,21 @@ if (!empty($search)) {
 }
 
 $totalPages = ceil($totalRows / $limit);
+
+
+if (isset($_GET['delete_id'])) {
+    $deleteId = (int)$_GET['delete_id'];
+    
+    try {
+        $delStmt = $conn->prepare("DELETE FROM users WHERE id = ?");
+        $delStmt->execute([$deleteId]);
+        
+        // I-redirect pabalik sa users view para mawala ang URL parameter ng delete
+        header("Location: admin.php?view=users");
+        exit();
+    } catch (PDOException $e) {
+        // Ipakita ang error kung sakaling may issue sa pagbura
+        $error = "Hindi ma-delete ang user: " . $e->getMessage();
+    }
+}
 ?>

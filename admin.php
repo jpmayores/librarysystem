@@ -375,10 +375,10 @@ if ($current_view === 'inventory') {
             <!-- 2. TRANSACTIONS VIEW -->
             <?php if ($current_view === 'transactions'): ?>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                 <h3 style="margin: 0; display: flex; align-items: center; gap: 10px;">
-    <i class="fa-solid fa-right-left" style="color: #4f46e5;"></i> Transaction & Fine Monitor
-</h3>
-            <div style="display: flex; gap: 10px;">
+                    <h3 style="margin: 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-right-left" style="color: #4f46e5;"></i> Transaction & Fine Monitor
+                    </h3>
+                    <div style="display: flex; gap: 10px;">
                         <!-- Button para sa Fine/Reminders check -->
                         <a href="actions/send_reminder.php" class="action-btn"
                             style="background: #3b82f6; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px;"
@@ -389,7 +389,7 @@ if ($current_view === 'inventory') {
                         <!-- Button para sa CSV Export -->
                         <a href="actions/export_transactions.php"
                             style="padding: 8px 16px; background: #10b981; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 14px;">
-                                EXPORT (CSV)
+                            EXPORT (CSV)
                         </a>
                     </div>
                 </div>
@@ -448,96 +448,113 @@ if ($current_view === 'inventory') {
 
         <!-- 3. USERS VIEW -->
         <?php if ($current_view === 'users'): ?>
-         
 
-         <div style="display: flex; flex-direction: column; width: 100%; gap: 20px;">
-        
-        <!-- 1. Header kasama ang Title at Search Bar sa iisang row -->
-        <div style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-            <h2 class="portal-catalog-title" style="display: flex; align-items: center; gap: 10px; margin: 0;">
-                <i class="fa-solid fa-users" style="color: #4f46e5;"></i> Registered Users Management
-            </h2>
-            
-            <!-- Search Bar -->
-            <form method="GET" action="admin.php" style="display: flex; gap: 10px; margin: 0;">
-                <input type="hidden" name="view" value="users">
-                <input type="text" name="search_user" placeholder="Search username or email..." 
-                       value="<?= htmlspecialchars($_GET['search_user'] ?? '') ?>" 
-                       style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 250px;">
-                <button type="submit" class="btn-primary" style="padding: 8px 16px; background: #1e293b; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Search</button>
-            </form>
-        </div>
 
-        <!-- 2. Stat Card sa itaas ng Table -->
-        <div>
-            <div style="background: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: inline-block; min-width: 200px;">
-                <span style="color: #64748b; font-size: 14px;">Total Registered Users</span>
-                <h3 style="margin: 5px 0 0 0; color: #1e293b;"><?= count($usersList); ?></h3>
+            <div style="display: flex; flex-direction: column; width: 100%; gap: 20px;">
+
+                <!-- 1. Header kasama ang Title at Search Bar sa iisang row -->
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                    <h2 class="portal-catalog-title" style="display: flex; align-items: center; gap: 10px; margin: 0;">
+                        <i class="fa-solid fa-users" style="color: #4f46e5;"></i> Registered Users Management
+                    </h2>
+
+                    <!-- Search Bar -->
+                    <form method="GET" action="admin.php" style="display: flex; gap: 10px; margin: 0;">
+                        <input type="hidden" name="view" value="users">
+                        <input type="text" name="search_user" placeholder="Search username or email..."
+                            value="<?= htmlspecialchars($_GET['search_user'] ?? '') ?>"
+                            style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 250px;">
+                        <button type="submit" class="btn-primary"
+                            style="padding: 8px 16px; background: #1e293b; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Search</button>
+                    </form>
+                </div>
+
+                <!-- 2. Stat Card sa itaas ng Table -->
+                <div>
+                    <div
+                        style="background: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: inline-block; min-width: 200px;">
+                        <span style="color: #64748b; font-size: 14px;">Total Registered Users</span>
+                        <h3 style="margin: 5px 0 0 0; color: #1e293b;"><?= count($usersList); ?></h3>
+                    </div>
+                </div>
+
+                <!-- 3. Table at Pagination Container -->
+                <div class="history-card-container"
+                    style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                    <table class="history-table" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
+                                <th style="padding: 10px;">User ID</th>
+                                <th style="padding: 10px;">Username</th>
+                                <th style="padding: 10px;">Email / Details</th>
+                                <th style="padding: 10px;">Date Registered</th>
+                                <th style="padding: 10px; text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($usersList)): ?>
+                                <?php foreach ($usersList as $usr): ?>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 10px;"><?= htmlspecialchars($usr['id']); ?></td>
+                                        <td style="padding: 10px; font-weight: 600;"><?= htmlspecialchars($usr['username']); ?></td>
+                                        <td style="padding: 10px;">
+                                            <?= isset($usr['email']) ? htmlspecialchars($usr['email']) : 'N/A'; ?>
+                                        </td>
+                                        <td style="padding: 10px;">
+                                            <?= isset($usr['created_at']) ? htmlspecialchars($usr['created_at']) : 'N/A'; ?>
+                                        </td>
+                                        <td style="padding: 10px; text-align: center;">
+                                            <button type="button"
+                                                onclick="openDeleteModal('admin.php?view=users&delete_id=<?= $usr['id']; ?>')"
+                                                style="padding: 6px 10px; background: #ef4444; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                                                <i class="fa-solid fa-trash"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">No Registered
+                                        Users Found</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination UI -->
+                    <?php if (isset($totalPages) && $totalPages > 1): ?>
+                        <div style="display: flex; justify-content: center; gap: 5px; margin-top: 20px;">
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                <a href="admin.php?view=users&page=<?= $i; ?><?= isset($_GET['search_user']) ? '&search_user=' . urlencode($_GET['search_user']) : ''; ?>"
+                                    style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none; background: <?= (isset($_GET['page']) && $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1) ? '#1e293b' : '#fff'; ?>; color: <?= (isset($_GET['page']) && $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1) ? '#fff' : '#1e293b'; ?>;">
+                                    <?= $i; ?>
+                                </a>
+                            <?php endfor; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
             </div>
-        </div>
+        <?php endif; ?>
 
-        <!-- 3. Table at Pagination Container -->
-        <div class="history-card-container" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-            <table class="history-table" style="width: 100%; border-collapse: collapse;">
+    </div>
+    </div>
+    <?php if (isset($_GET['view']) && $_GET['view'] === 'audit_logs'): ?>
+
+        <div class="audit-logs-container">
+            <h3 class="audit-logs-title">Admin Audit Logs</h3>
+            <table class="audit-logs-table">
                 <thead>
-                    <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
-                        <th style="padding: 10px;">User ID</th>
-                        <th style="padding: 10px;">Username</th>
-                        <th style="padding: 10px;">Email / Details</th>
-                        <th style="padding: 10px;">Date Registered</th>
+                    <tr>
+                        <th class="col-id">ID</th>
+                        <th class="col-action">Aksyon</th>
+
+                        <th class="col-details">Detalye</th>
+                        <th class="col-date">Oras</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (!empty($usersList)): ?>
-                        <?php foreach ($usersList as $usr): ?>
-                            <tr style="border-bottom: 1px solid #f1f5f9;">
-                                <td style="padding: 10px;"><?= htmlspecialchars($usr['id']); ?></td>
-                                <td style="padding: 10px; font-weight: 600;"><?= htmlspecialchars($usr['username']); ?></td>
-                                <td style="padding: 10px;"><?= isset($usr['email']) ? htmlspecialchars($usr['email']) : 'N/A'; ?></td>
-                                <td style="padding: 10px;"><?= isset($usr['created_at']) ? htmlspecialchars($usr['created_at']) : 'N/A'; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">No Registered Users Found</td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-
-            <!-- Pagination UI -->
-            <?php if (isset($totalPages) && $totalPages > 1): ?>
-                <div style="display: flex; justify-content: center; gap: 5px; margin-top: 20px;">
-                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                        <a href="admin.php?view=users&page=<?= $i; ?><?= isset($_GET['search_user']) ? '&search_user=' . urlencode($_GET['search_user']) : ''; ?>" 
-                           style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none; background: <?= (isset($_GET['page']) && $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1) ? '#1e293b' : '#fff'; ?>; color: <?= (isset($_GET['page']) && $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1) ? '#fff' : '#1e293b'; ?>;">
-                            <?= $i; ?>
-                        </a>
-                    <?php endfor; ?>
-                </div>
-            <?php endif; ?>
-        </div>
-
-    </div>
-<?php endif; ?>
-
-            </div>
-        </div>
-        <?php if (isset($_GET['view']) && $_GET['view'] === 'audit_logs'): ?>
-
-            <div class="audit-logs-container">
-                <h3 class="audit-logs-title">Admin Audit Logs</h3>
-                <table class="audit-logs-table">
-                    <thead>
-                        <tr>
-                            <th class="col-id">ID</th>
-                            <th class="col-action">Aksyon</th>
-                                       
-                            <th class="col-details">Detalye</th>
-                            <th class="col-date">Oras</th>
-                        </tr>
-                    </thead>
-                                <tbody>
                     <?php
                     $stmtLogs = $conn->query("SELECT * FROM audit_logs ORDER BY created_at DESC LIMIT 50");
                     $logs = $stmtLogs->fetchAll(PDO::FETCH_ASSOC);
@@ -559,135 +576,148 @@ if ($current_view === 'inventory') {
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
-                                <tr>
-                                    <td colspan="4" class="audit-logs-empty">Wala pang naka-record na log.</td>
-                               </tr>
+                        <tr>
+                            <td colspan="4" class="audit-logs-empty">Wala pang naka-record na log.</td>
+                        </tr>
                     <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
 
-        <?php endif; ?>
+    <?php endif; ?>
 
-        <!-- Edit Book Modal -->
-        <div id="editBookModal"
+    <!-- Edit Book Modal -->
+    <div id="editBookModal"
         style=" display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center;">
-            <div
-                style="background: #fff; padding: 30px; border-radius: 12px; width: 400px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <h3 style="margin-top: 0;">Edit Book Details</h3>
-                <form action="actions/edit_book.php" method="POST">
-                    <input type="hidden" name="id" id="edit_book_id">
+        <div
+            style="background: #fff; padding: 30px; border-radius: 12px; width: 400px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h3 style="margin-top: 0;">Edit Book Details</h3>
+            <form action="actions/edit_book.php" method="POST">
+                <input type="hidden" name="id" id="edit_book_id">
 
-                    <div style="margin-bottom: 15px;">
-                        <label
-                            style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Title</label>
-                                        <input type="text" name="title" id="edit_book_title" required
-                            style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                    </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Title</label>
+                    <input type="text" name="title" id="edit_book_title" required
+                        style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label
-                            style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Author</label>
-                        <input type="text" name="author" id="edit_book_author"
-                            style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                    </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Author</label>
+                    <input type="text" name="author" id="edit_book_author"
+                        style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Genre /
-                            Category</label>
-                        <input type="text" name="category" id="edit_book_category"
-                            style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                    </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Genre /
+                        Category</label>
+                    <input type="text" name="category" id="edit_book_category"
+                        style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
 
-                    <div style="margin-bottom: 20px;">
-                        <label
-                            style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Status</label>
-                        <select name="status" id="edit_book_status"
-                            style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                            <option value="Available">Available</option>
-                            <option value="Borrowed">Borrowed</option>
-                        </select>
-                    </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500;">Status</label>
+                    <select name="status" id="edit_book_status"
+                        style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                        <option value="Available">Available</option>
+                        <option value="Borrowed">Borrowed</option>
+                    </select>
+                </div>
 
-                    <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                        <button type="button" onclick="closeEditModal()"
-                            style="padding: 8px 16px; background: #64748b; color: white; border: none; border-radius: 6px; cursor: pointer;">Cancel</button>
-                        <button type="submit"
-                            style="padding: 8px 16px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer;">Save
-                            Changes</button>
-                    </div>
-                </form>
-            </div>
+                <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button type="button" onclick="closeEditModal()"
+                        style="padding: 8px 16px; background: #64748b; color: white; border: none; border-radius: 6px; cursor: pointer;">Cancel</button>
+                    <button type="submit"
+                        style="padding: 8px 16px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer;">Save
+                        Changes</button>
+                </div>
+            </form>
         </div>
-        <!-- Return & Damage Inspection Modal -->
-        <div id="returnBookModal"
-            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000;">
-            <div
-                style="background: #fff; padding: 30px; border-radius: 12px; width: 400px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <h3 style="margin-top: 0; color: #1e293b;">Process Book Return</h3>
-                <p style="font-size: 14px; color: #64748b; margin-bottom: 20px;">Suriin ang kondisyon ng isinasuling
-                    libro
-                    bago tapusin ang transaksyon.</p>
+    </div>
+    <!-- Return & Damage Inspection Modal -->
+    <div id="returnBookModal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000;">
+        <div
+            style="background: #fff; padding: 30px; border-radius: 12px; width: 400px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h3 style="margin-top: 0; color: #1e293b;">Process Book Return</h3>
+            <p style="font-size: 14px; color: #64748b; margin-bottom: 20px;">Suriin ang kondisyon ng isinasuling
+                libro
+                bago tapusin ang transaksyon.</p>
 
-                <form action="actions/return_book.php" method="POST">
-                    <input type="hidden" name="txn_id" id="return_txn_id">
-                    <input type="hidden" name="book_id" id="return_book_id">
+            <form action="actions/return_book.php" method="POST">
+                <input type="hidden" name="txn_id" id="return_txn_id">
+                <input type="hidden" name="book_id" id="return_book_id">
 
-                    <div style="margin-bottom: 15px;">
-                        <label
-                            style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500; color: #334155;">Kondisyon
-                            ng Libro</label>
-                        <!-- TINGNAN DITO: Nakalagay na ang onchange="toggleDamageFee()" -->
-                        <select name="condition_status" id="condition_status" onchange="toggleDamageFee()"
-                            style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                            <option value="Good">Good (Maayos)</option>
-                            <option value="Damaged">Damaged (May Sira / Nasira)</option>
-                        </select>
-                    </div>
+                <div style="margin-bottom: 15px;">
+                    <label
+                        style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500; color: #334155;">Kondisyon
+                        ng Libro</label>
+                    <!-- TINGNAN DITO: Nakalagay na ang onchange="toggleDamageFee()" -->
+                    <select name="condition_status" id="condition_status" onchange="toggleDamageFee()"
+                        style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                        <option value="Good">Good (Maayos)</option>
+                        <option value="Damaged">Damaged (May Sira / Nasira)</option>
+                    </select>
+                </div>
 
-                    <div id="damageFeeContainer" style="display: none; margin-bottom: 20px;">
-                        <label
-                            style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500; color: #334155;">Karagdagang
-                            Multa sa Sira (Damage Fee - PHP)</label>
-                        <input type="number" name="damage_fee" step="0.01" value="0.00"
-                            style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
-                    </div>
+                <div id="damageFeeContainer" style="display: none; margin-bottom: 20px;">
+                    <label
+                        style="display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500; color: #334155;">Karagdagang
+                        Multa sa Sira (Damage Fee - PHP)</label>
+                    <input type="number" name="damage_fee" step="0.01" value="0.00"
+                        style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
 
-                    <div style="display: flex; justify-content: flex-end; gap: 10px;">
-                        <button type="button" onclick="closeReturnModal()"
-                            style="padding: 8px 16px; background: #64748b; color: white; border: none; border-radius: 6px; cursor: pointer;">Cancel</button>
-                        <button type="submit"
-                            style="padding: 8px 16px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer;">Confirm
-                            Return</button>
-                    </div>
-                </form>
-            </div>
+                <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button type="button" onclick="closeReturnModal()"
+                        style="padding: 8px 16px; background: #64748b; color: white; border: none; border-radius: 6px; cursor: pointer;">Cancel</button>
+                    <button type="submit"
+                        style="padding: 8px 16px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer;">Confirm
+                        Return</button>
+                </div>
+            </form>
         </div>
-        <script src="asset/script.js"></script>
-        <script>
-            function openReturnModal(txnId, bookId) {
-                // Kunin ang modal at mga hidden input
-                const modal = document.getElementById('returnBookModal');
-                const txnInput = document.getElementById('return_txn_id');
-                const bookInput = document.getElementById('return_book_id');
+    </div>
+    <!-- Custom Delete Modal -->
+<div id="deleteModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background: #fff; padding: 25px; border-radius: 12px; width: 400px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); text-align: center;">
+        <h3 style="margin-top: 0; color: #1e293b;">Confirm Deletion</h3>
+        <p style="color: #64748b; font-size: 14px;">Are you sure you want to delete this user? This action cannot be undone.</p>
+        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+            <button onclick="closeDeleteModal()" style="padding: 8px 16px; background: #e2e8f0; color: #1e293b; border: none; border-radius: 6px; cursor: pointer;">Cancel</button>
+            <a id="confirmDeleteBtn" href="#" style="padding: 8px 16px; background: #ef4444; color: #fff; border-radius: 6px; text-decoration: none;">Yes, Delete</a>
+        </div>
+    </div>
+</div>
 
-                // Ipasok ang mga ID
-                if (txnInput) txnInput.value = txnId;
-                if (bookInput) bookInput.value = bookId;
+<!-- Toast Notification Container -->
+<div id="toastNotification" style="display: none; position: fixed; bottom: 20px; right: 20px; background: #10b981; color: #fff; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 1100; font-weight: 500;">
+    User successfully deleted!
+</div>
+    <script src="asset/script.js"></script>
+    <script>
+        function openReturnModal(txnId, bookId) {
+            // Kunin ang modal at mga hidden input
+            const modal = document.getElementById('returnBookModal');
+            const txnInput = document.getElementById('return_txn_id');
+            const bookInput = document.getElementById('return_book_id');
 
-                // Ipakita ang modal
-                if (modal) {
-                    modal.style.display = 'flex';
-                }
+            // Ipasok ang mga ID
+            if (txnInput) txnInput.value = txnId;
+            if (bookInput) bookInput.value = bookId;
+
+            // Ipakita ang modal
+            if (modal) {
+                modal.style.display = 'flex';
             }
+        }
 
-            function closeReturnModal() {
-                const modal = document.getElementById('returnBookModal');
-                if (modal) {
-                    modal.style.display = 'none';
-                }
+        function closeReturnModal() {
+            const modal = document.getElementById('returnBookModal');
+            if (modal) {
+                modal.style.display = 'none';
             }
-        </script>
+        }
+    </script>
 </body>
 
 </html>

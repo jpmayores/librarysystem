@@ -132,3 +132,27 @@ function togglePassword(fieldId, element) {
             closeReturnModal();
         }
     }
+
+    function openDeleteModal(deleteUrl) {
+    const modal = document.getElementById('deleteModal');
+    const confirmBtn = document.getElementById('confirmDeleteBtn');
+    confirmBtn.href = deleteUrl;
+    modal.style.display = 'flex';
+}
+
+function closeDeleteModal() {
+    const modal = document.getElementById('deleteModal');
+    modal.style.display = 'none';
+}
+
+// Para sa Toast kung may tagumpay galing sa URL parameter
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('deleted') === 'success') {
+        const toast = document.getElementById('toastNotification');
+        toast.style.display = 'block';
+        setTimeout(() => {
+            toast.style.display = 'none';
+        }, 3000); // Mawawala pagkatapos ng 3 segundo
+    }
+});
