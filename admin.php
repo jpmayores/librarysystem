@@ -209,7 +209,13 @@ if ($current_view === 'inventory') {
         font-weight: 700;
         color: #1e293b;
     }
-
+.admin-main {
+    flex: 1;
+    min-width: 0; /* Pinipigilan ang flex items na mag-overflow o mang-stretches */
+    box-sizing: border-box;
+    padding: 30px;
+    background: #f8fafc;
+}
     .sidebar {
         position: sticky;
         /* O kaya ay 'fixed' depende sa iyong layout */
