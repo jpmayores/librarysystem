@@ -219,6 +219,12 @@ if ($current_view === 'inventory') {
         overflow-y: auto;
         /* Para makapag-scroll pa rin sa loob ng sidebar kung marami ang laman */
     }
+    .sidebar a {
+    display: block;
+    padding: 10px 15px;
+    /* Iwasang mag-shift ang layout kapag nagiging bold ang active state */
+    white-space: nowrap; 
+}
 </style>
 
 <body>
