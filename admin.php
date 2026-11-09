@@ -470,7 +470,7 @@ if ($current_view === 'inventory') {
                     <form method="GET" action="admin.php" style="display: flex; gap: 10px; margin: 0;">
                         <input type="hidden" name="view" value="users">
                         <input type="text" name="search_user" placeholder="Search username or email..."
-                            value="<?= htmlspecialchars($_GET['search_user'] ?? '') ?>"
+                          value="<?= isset($_GET['search_user']) ? htmlspecialchars($_GET['search_user']) : ''; ?>"
                             style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 250px;">
                         <button type="submit" class="btn-primary"
                             style="padding: 8px 16px; background: #1e293b; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Search</button>
@@ -701,6 +701,17 @@ if ($current_view === 'inventory') {
 </div>
     <script src="asset/script.js"></script>
     <script>
+        let searchTimeout;
+const searchInput = document.getElementById('searchInput');
+
+searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimeout);
+    
+    // Maghihintay ng 400 milliseconds pagkatapos mong mag-type bago mag-submit para hindi bumagal
+    searchTimeout = setTimeout(() => {
+        document.getElementById('searchForm').submit();
+    }, 400);
+});
           function openDeleteModal(deleteUrl) {
     const modal = document.getElementById('deleteModal');
     const confirmBtn = document.getElementById('confirmDeleteBtn');
