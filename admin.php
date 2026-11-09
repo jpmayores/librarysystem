@@ -17,11 +17,12 @@ if (isset($_GET['view']) && $_GET['view'] === 'audit_logs') {
 $current_view = $_GET['view'] ?? 'inventory';
 
 
-$usersList = [];
+
 $usersList = [];
 if ($current_view === 'users') {
     include('config/users_backend.php');
 }
+
 // Kunin ang mga libro
 $stmtBooks = $conn->query("SELECT * FROM books ORDER BY id DESC");
 $books = $stmtBooks->fetchAll(PDO::FETCH_ASSOC);

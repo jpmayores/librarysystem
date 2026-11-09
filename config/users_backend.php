@@ -55,12 +55,8 @@ if (isset($_GET['delete_id'])) {
     }
 }
 
-// DEBUGGER: I-check kung ano ang nakuha mula sa URL
+// 1. Kunin ang search value
 $searchUser = isset($_GET['search_user']) ? trim($_GET['search_user']) : '';
-
-echo "<div style='background: #1e293b; color: #38bdf8; padding: 10px; margin: 10px; font-family: monospace; z-index: 9999; position: relative;'>";
-echo "<strong>DEBUGGER INFO:</strong><br>";
-echo "Search Input Value: '" . htmlspecialchars($searchUser) . "'<br>";
 
 $limit = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -69,13 +65,13 @@ $offset = ($page - 1) * $limit;
 
 if ($searchUser !== '') {
     $searchTerm = "%" . $searchUser . "%";
-    echo "SQL Mode: FILTERED (Searching for: $searchTerm)<br>";
     
+    // Bilangin ang filtered records
     $countStmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE username LIKE ? OR email LIKE ?");
     $countStmt->execute([$searchTerm, $searchTerm]);
     $totalUsers = $countStmt->fetchColumn();
-    echo "Total Filtered Users Found: " . $totalUsers . "<br>";
 
+    // Kunin ang mga filtered users para sa table
     $stmt = $conn->prepare("SELECT * FROM users WHERE username LIKE ? OR email LIKE ? ORDER BY id DESC LIMIT ? OFFSET ?");
     $stmt->bindValue(1, $searchTerm, PDO::PARAM_STR);
     $stmt->bindValue(2, $searchTerm, PDO::PARAM_STR);
@@ -84,8 +80,7 @@ if ($searchUser !== '') {
     $stmt->execute();
     $usersList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    echo "SQL Mode: ALL USERS (No search query)<br>";
-    
+    // Kunin ang lahat kung walang search
     $countStmt = $conn->query("SELECT COUNT(*) FROM users");
     $totalUsers = $countStmt->fetchColumn();
 
@@ -95,8 +90,6 @@ if ($searchUser !== '') {
     $stmt->execute();
     $usersList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-echo "Users fetched in array: " . count($usersList) . "<br>";
-echo "</div>";
 
 $totalPages = ceil($totalUsers / $limit);
 ?>
