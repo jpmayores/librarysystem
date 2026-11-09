@@ -16,13 +16,6 @@ if (isset($_GET['view']) && $_GET['view'] === 'audit_logs') {
 }
 $current_view = $_GET['view'] ?? 'inventory';
 
-
-$usersList = [];
-if ($current_view === 'users') {
-    include('config/users_backend.php');
-}
-
-
 // Kunin ang mga libro
 $stmtBooks = $conn->query("SELECT * FROM books ORDER BY id DESC");
 $books = $stmtBooks->fetchAll(PDO::FETCH_ASSOC);
@@ -63,9 +56,10 @@ try {
 $search = $_GET['search'] ?? '';
 $statusFilter = $_GET['status_filter'] ?? '';
 
+$usersList = [];
 if ($current_view === 'users') {
-    $stmt = $conn->query("SELECT * FROM users ORDER BY id DESC");
-    $usersList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    include('config/users_backend.php');
+
 } elseif ($current_view === 'transactions') {
     $query = "SELECT t.id as txn_id, t.user_id, b.title as book_title, t.due_date, t.status, t.fine as overdue_fine 
               FROM transactions t 
