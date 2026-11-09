@@ -214,6 +214,12 @@ if ($current_view === 'inventory') {
         font-weight: 700;
         color: #1e293b;
     }
+    .sidebar {
+    position: sticky; /* O kaya ay 'fixed' depende sa iyong layout */
+    top: 0;
+    height: 100vh; /* Sakop ang buong taas ng screen */
+    overflow-y: auto; /* Para makapag-scroll pa rin sa loob ng sidebar kung marami ang laman */
+}
 </style>
 
 <body>
