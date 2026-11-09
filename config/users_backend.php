@@ -70,22 +70,22 @@ if ($searchUser !== '') {
     $countStmt->execute([$searchTerm, $searchTerm]);
     $totalUsers = $countStmt->fetchColumn();
 
-    // 2. Kunin ang filtered users gamit ang LIMIT at OFFSET
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username LIKE ? OR email LIKE ? ORDER BY id DESC LIMIT ?, ?");
+    // 2. Gamitin ang LIMIT ... OFFSET ... (Hiwalay na clauses)
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username LIKE ? OR email LIKE ? ORDER BY id DESC LIMIT ? OFFSET ?");
     $stmt->bindValue(1, $searchTerm, PDO::PARAM_STR);
     $stmt->bindValue(2, $searchTerm, PDO::PARAM_STR);
-    $stmt->bindValue(3, $offset, PDO::PARAM_INT);
-    $stmt->bindValue(4, $limit, PDO::PARAM_INT);
+    $stmt->bindValue(3, $limit, PDO::PARAM_INT);
+    $stmt->bindValue(4, $offset, PDO::PARAM_INT);
     $stmt->execute();
     $usersList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    // Kung walang search, kunin lahat ng users
+    // Kung walang search
     $countStmt = $conn->query("SELECT COUNT(*) FROM users");
     $totalUsers = $countStmt->fetchColumn();
 
-    $stmt = $conn->prepare("SELECT * FROM users ORDER BY id DESC LIMIT ?, ?");
-    $stmt->bindValue(1, $offset, PDO::PARAM_INT);
-    $stmt->bindValue(2, $limit, PDO::PARAM_INT);
+    $stmt = $conn->prepare("SELECT * FROM users ORDER BY id DESC LIMIT ? OFFSET ?");
+    $stmt->bindValue(1, $limit, PDO::PARAM_INT);
+    $stmt->bindValue(2, $offset, PDO::PARAM_INT);
     $stmt->execute();
     $usersList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
