@@ -57,21 +57,19 @@ if (isset($_GET['delete_id'])) {
 
 $searchUser = isset($_GET['search_user']) ? trim($_GET['search_user']) : '';
 
-// 2. Pagination configuration
-$limit = 10; // Bilang ng users kada pahina
+$limit = 10; // Bilang ng users bawat pahina
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $page = max($page, 1);
 $offset = ($page - 1) * $limit;
 
 if ($searchUser !== '') {
-    // Kung may search, bilangin ang filtered results
+    // Bilangin ang resulta kapag may search filter
     $countStmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE username LIKE ? OR email LIKE ?");
     $countStmt->execute(["%$searchUser%", "%$searchUser%"]);
     $totalUsers = $countStmt->fetchColumn();
 
     // Kunin ang filtered users para sa kasalukuyang pahina
     $stmt = $conn->prepare("SELECT * FROM users WHERE username LIKE ? OR email LIKE ? ORDER BY id DESC LIMIT ? OFFSET ?");
-    // Kailangan i-bind ang LIMIT at OFFSET bilang integers sa PDO
     $stmt->bindValue(1, "%$searchUser%", PDO::PARAM_STR);
     $stmt->bindValue(2, "%$searchUser%", PDO::PARAM_STR);
     $stmt->bindValue(3, $limit, PDO::PARAM_INT);
@@ -79,7 +77,7 @@ if ($searchUser !== '') {
     $stmt->execute();
     $usersList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    // Kung walang search, kunin lahat ng users na may limit
+    // Kung walang search, kunin lahat ng users
     $countStmt = $conn->query("SELECT COUNT(*) FROM users");
     $totalUsers = $countStmt->fetchColumn();
 
@@ -90,6 +88,5 @@ if ($searchUser !== '') {
     $usersList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Kalkulahin ang total pages
 $totalPages = ceil($totalUsers / $limit);
 ?>
