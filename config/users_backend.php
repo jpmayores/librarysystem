@@ -55,7 +55,6 @@ if (isset($_GET['delete_id'])) {
     }
 }
 
-// 1. Kunin ang search value
 $searchUser = isset($_GET['search_user']) ? trim($_GET['search_user']) : '';
 
 $limit = 10;
@@ -66,12 +65,12 @@ $offset = ($page - 1) * $limit;
 if ($searchUser !== '') {
     $searchTerm = "%" . $searchUser . "%";
     
-    // Bilangin ang filtered records
+    // Bilangin ang filtered result
     $countStmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE username LIKE ? OR email LIKE ?");
     $countStmt->execute([$searchTerm, $searchTerm]);
     $totalUsers = $countStmt->fetchColumn();
 
-    // Kunin ang mga filtered users para sa table
+    // Kunin ang mismong filtered users
     $stmt = $conn->prepare("SELECT * FROM users WHERE username LIKE ? OR email LIKE ? ORDER BY id DESC LIMIT ? OFFSET ?");
     $stmt->bindValue(1, $searchTerm, PDO::PARAM_STR);
     $stmt->bindValue(2, $searchTerm, PDO::PARAM_STR);
@@ -80,7 +79,7 @@ if ($searchUser !== '') {
     $stmt->execute();
     $usersList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } else {
-    // Kunin ang lahat kung walang search
+    // Lahat ng users kung walang search
     $countStmt = $conn->query("SELECT COUNT(*) FROM users");
     $totalUsers = $countStmt->fetchColumn();
 

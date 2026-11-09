@@ -256,344 +256,344 @@ if ($current_view === 'inventory') {
 
     <!-- Main Content Area -->
     <?php if ($current_view === 'inventory'): ?>
-            <div class="main-content">
-                <div class="header-container">
-                    <div>
-                        <h1>Control Dashboard</h1>
-                        <p>Manage system records, books, and metrics.</p>
-                    </div>
-                    <button type="button" class="btn-primary" onclick="openAddModal()">+ Add New Book</button>
+        <div class="main-content">
+            <div class="header-container">
+                <div>
+                    <h1>Control Dashboard</h1>
+                    <p>Manage system records, books, and metrics.</p>
                 </div>
+                <button type="button" class="btn-primary" onclick="openAddModal()">+ Add New Book</button>
+            </div>
         <?php endif; ?>
         <!-- 4 Cards sa Itaas -->
         <?php if ($current_view === 'inventory'): ?>
-                <div class="stats-grid">
-                    <div class="card stat-total">
-                        <div class="stat-icon"><i class="fa-solid fa-book"></i></div>
-                        <div class="stat-info">
-                            <span>Total Books</span>
-                            <h3><?= $total_books; ?></h3>
-                        </div>
-                    </div>
-
-                    <div class="card stat-available">
-                        <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
-                        <div class="stat-info">
-                            <span>Available</span>
-                            <h3><?= $available_books; ?></h3>
-                        </div>
-                    </div>
-
-                    <div class="card stat-borrowed">
-                        <div class="stat-icon"><i class="fa-solid fa-book-bookmark"></i></div>
-                        <div class="stat-info">
-                            <span>Borrowed</span>
-                            <h3><?= $borrowed_books; ?></h3>
-                        </div>
-                    </div>
-
-                    <div class="card stat-fines">
-                        <div class="stat-icon"><i class="fa-solid fa-peso-sign"></i></div>
-                        <div class="stat-info">
-                            <span>Pending Fines</span>
-                            <h3>₱0</h3>
-                        </div>
+            <div class="stats-grid">
+                <div class="card stat-total">
+                    <div class="stat-icon"><i class="fa-solid fa-book"></i></div>
+                    <div class="stat-info">
+                        <span>Total Books</span>
+                        <h3><?= $total_books; ?></h3>
                     </div>
                 </div>
+
+                <div class="card stat-available">
+                    <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="stat-info">
+                        <span>Available</span>
+                        <h3><?= $available_books; ?></h3>
+                    </div>
+                </div>
+
+                <div class="card stat-borrowed">
+                    <div class="stat-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+                    <div class="stat-info">
+                        <span>Borrowed</span>
+                        <h3><?= $borrowed_books; ?></h3>
+                    </div>
+                </div>
+
+                <div class="card stat-fines">
+                    <div class="stat-icon"><i class="fa-solid fa-peso-sign"></i></div>
+                    <div class="stat-info">
+                        <span>Pending Fines</span>
+                        <h3>₱0</h3>
+                    </div>
+                </div>
+            </div>
         <?php endif; ?>
         <div class="admin-main" style="flex: 1; padding: 30px; background: #f8fafc;">
 
             <!-- 1. INVENTORY VIEW -->
             <?php if ($current_view === 'inventory'): ?>
-                    <form method="GET" action="admin.php" style="margin-bottom: 15px; display: flex; gap: 10px;">
-                        <input type="hidden" name="view" value="inventory">
-                        <input type="text" name="search" placeholder="Search for (Title o Author)..."
-                            value="<?= htmlspecialchars($_GET['search'] ?? ''); ?>"
-                            style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 300px;">
-                        <button type="submit"
-                            style="padding: 8px 16px; background: #0f213d; color: white; border: none; border-radius: 6px; cursor: pointer;">Search</button>
-                        <?php if (!empty($_GET['search'])): ?>
-                                <a href="admin.php?view=inventory"
-                                    style="padding: 8px 12px; background: #64748b; color: white; text-decoration: none; border-radius: 6px; display: flex; align-items: center;">Done</a>
-                        <?php endif; ?>
-                    </form>
+                <form method="GET" action="admin.php" style="margin-bottom: 15px; display: flex; gap: 10px;">
+                    <input type="hidden" name="view" value="inventory">
+                    <input type="text" name="search" placeholder="Search for (Title o Author)..."
+                        value="<?= htmlspecialchars($_GET['search'] ?? ''); ?>"
+                        style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 300px;">
+                    <button type="submit"
+                        style="padding: 8px 16px; background: #0f213d; color: white; border: none; border-radius: 6px; cursor: pointer;">Search</button>
+                    <?php if (!empty($_GET['search'])): ?>
+                        <a href="admin.php?view=inventory"
+                            style="padding: 8px 12px; background: #64748b; color: white; text-decoration: none; border-radius: 6px; display: flex; align-items: center;">Done</a>
+                    <?php endif; ?>
+                </form>
 
-                    <?php if (file_exists('include/add_book_modal.php'))
-                        include 'include/add_book_modal.php'; ?>
-                    <div class="content-card"
-                        style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                        <h3>Book Inventory Management</h3>
-                        <table class="data-table" style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-                            <thead>
-                                <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
-                                    <th style="padding: 10px;">Book ID</th>
-                                    <th style="padding: 10px;">Title</th>
-                                    <th style="padding: 10px;">Author</th>
-                                    <th style="padding: 10px;">Genre</th>
-                                    <th style="padding: 10px;">Status</th>
-                                    <th style="padding: 10px;">Actions</th>
+                <?php if (file_exists('include/add_book_modal.php'))
+                    include 'include/add_book_modal.php'; ?>
+                <div class="content-card"
+                    style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                    <h3>Book Inventory Management</h3>
+                    <table class="data-table" style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
+                                <th style="padding: 10px;">Book ID</th>
+                                <th style="padding: 10px;">Title</th>
+                                <th style="padding: 10px;">Author</th>
+                                <th style="padding: 10px;">Genre</th>
+                                <th style="padding: 10px;">Status</th>
+                                <th style="padding: 10px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (count($books) > 0): ?>
+                                <?php foreach ($books as $book): ?>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 10px;"><?= htmlspecialchars($book['id']); ?></td>
+                                        <td style="padding: 10px;"><strong><?= htmlspecialchars($book['title']); ?></strong></td>
+                                        <td style="padding: 10px;"><?= htmlspecialchars($book['author'] ?? 'N/A'); ?></td>
+                                        <td style="padding: 10px;"><?= htmlspecialchars($book['category'] ?? 'General'); ?></td>
+                                        <td style="padding: 10px;">
+                                            <?php
+                                            $bookStatus = $book['status'] ?? 'Available';
+                                            $badgeClass = strtolower($bookStatus) === 'available' ? 'available' : 'borrowed';
+                                            ?>
+                                            <span class="badge <?= $badgeClass; ?>"><?= htmlspecialchars($bookStatus); ?></span>
+                                        </td>
+                                        <td style="padding: 10px; display: flex; gap: 10px;">
+                                            <!-- Edit Trigger -->
+                                            <a href="#"
+                                                onclick="openEditModal('<?= $book['id']; ?>', '<?= htmlspecialchars($book['title'], ENT_QUOTES); ?>', '<?= htmlspecialchars($book['author'] ?? '', ENT_QUOTES); ?>', '<?= htmlspecialchars($book['category'] ?? '', ENT_QUOTES); ?>', '<?= $book['status'] ?? 'Available'; ?>')"
+                                                style="color: #3b82f6; text-decoration: none;">Edit</a>
+
+                                            <!-- Delete Button -->
+                                            <a href="actions/delete_book.php?id=<?= $book['id']; ?>"
+                                                style="color: #ef4444; text-decoration: none;"
+                                                onclick="return confirm('Sigurado ka bang gusto mong burahin ang librong ito?');">Delete</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 20px; color: #64748b;">No Books Found in
+                                        Database
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (count($books) > 0): ?>
-                                        <?php foreach ($books as $book): ?>
-                                                <tr style="border-bottom: 1px solid #f1f5f9;">
-                                                    <td style="padding: 10px;"><?= htmlspecialchars($book['id']); ?></td>
-                                                    <td style="padding: 10px;"><strong><?= htmlspecialchars($book['title']); ?></strong></td>
-                                                    <td style="padding: 10px;"><?= htmlspecialchars($book['author'] ?? 'N/A'); ?></td>
-                                                    <td style="padding: 10px;"><?= htmlspecialchars($book['category'] ?? 'General'); ?></td>
-                                                    <td style="padding: 10px;">
-                                                        <?php
-                                                        $bookStatus = $book['status'] ?? 'Available';
-                                                        $badgeClass = strtolower($bookStatus) === 'available' ? 'available' : 'borrowed';
-                                                        ?>
-                                                        <span class="badge <?= $badgeClass; ?>"><?= htmlspecialchars($bookStatus); ?></span>
-                                                    </td>
-                                                    <td style="padding: 10px; display: flex; gap: 10px;">
-                                                        <!-- Edit Trigger -->
-                                                        <a href="#"
-                                                            onclick="openEditModal('<?= $book['id']; ?>', '<?= htmlspecialchars($book['title'], ENT_QUOTES); ?>', '<?= htmlspecialchars($book['author'] ?? '', ENT_QUOTES); ?>', '<?= htmlspecialchars($book['category'] ?? '', ENT_QUOTES); ?>', '<?= $book['status'] ?? 'Available'; ?>')"
-                                                            style="color: #3b82f6; text-decoration: none;">Edit</a>
-
-                                                        <!-- Delete Button -->
-                                                        <a href="actions/delete_book.php?id=<?= $book['id']; ?>"
-                                                            style="color: #ef4444; text-decoration: none;"
-                                                            onclick="return confirm('Sigurado ka bang gusto mong burahin ang librong ito?');">Delete</a>
-                                                    </td>
-                                                </tr>
-                                        <?php endforeach; ?>
-                                <?php else: ?>
-                                        <tr>
-                                            <td colspan="6" style="text-align: center; padding: 20px; color: #64748b;">No Books Found in
-                                                Database
-                                            </td>
-                                        </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                        <?php if (isset($totalPages) && $totalPages > 1): ?>
-                                <div style="display: flex; justify-content: center; gap: 5px; margin-top: 20px;">
-                                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                                            <a href="admin.php?view=inventory&page=<?= $i; ?><?= !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
-                                                style="padding: 6px 12px; border-radius: 6px; text-decoration: none; background: <?= ($page == $i) ? '#3b82f6' : '#e2e8f0'; ?>; color: <?= ($page == $i) ? '#fff' : '#1e293b'; ?>;">
-                                                <?= $i; ?>
-                                            </a>
-                                    <?php endfor; ?>
-                                </div>
-                        <?php endif; ?>
-                    </div>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                    <?php if (isset($totalPages) && $totalPages > 1): ?>
+                        <div style="display: flex; justify-content: center; gap: 5px; margin-top: 20px;">
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                <a href="admin.php?view=inventory&page=<?= $i; ?><?= !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
+                                    style="padding: 6px 12px; border-radius: 6px; text-decoration: none; background: <?= ($page == $i) ? '#3b82f6' : '#e2e8f0'; ?>; color: <?= ($page == $i) ? '#fff' : '#1e293b'; ?>;">
+                                    <?= $i; ?>
+                                </a>
+                            <?php endfor; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
             <?php endif; ?>
 
             <!-- 2. TRANSACTIONS VIEW -->
             <?php if ($current_view === 'transactions'): ?>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h3 style="margin: 0; display: flex; align-items: center; gap: 10px;">
-                            <i class="fa-solid fa-right-left" style="color: #4f46e5;"></i> Transaction & Fine Monitor
-                        </h3>
-                        <div style="display: flex; gap: 10px;">
-                            <!-- Button para sa Fine/Reminders check -->
-                            <a href="actions/send_reminder.php" class="action-btn"
-                                style="background: #3b82f6; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px;"
-                                onclick="return confirm('Gusto mo bang suriin at i-update ang mga overdue fines?');">
-                                Update Fines
-                            </a>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-right-left" style="color: #4f46e5;"></i> Transaction & Fine Monitor
+                    </h3>
+                    <div style="display: flex; gap: 10px;">
+                        <!-- Button para sa Fine/Reminders check -->
+                        <a href="actions/send_reminder.php" class="action-btn"
+                            style="background: #3b82f6; color: #fff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px;"
+                            onclick="return confirm('Gusto mo bang suriin at i-update ang mga overdue fines?');">
+                            Update Fines
+                        </a>
 
-                            <!-- Button para sa CSV Export -->
-                            <a href="actions/export_transactions.php"
-                                style="padding: 8px 16px; background: #10b981; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 14px;">
-                                EXPORT (CSV)
-                            </a>
-                        </div>
+                        <!-- Button para sa CSV Export -->
+                        <a href="actions/export_transactions.php"
+                            style="padding: 8px 16px; background: #10b981; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 14px;">
+                            EXPORT (CSV)
+                        </a>
                     </div>
-                    <table class="data-table" style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-                        <thead>
-                            <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
-                                <th style="padding: 10px;">TXN ID</th>
-                                <th style="padding: 10px;">MEMBER</th>
-                                <th style="padding: 10px;">BOOK TITLE</th>
-                                <th style="padding: 10px;">DUE DATE</th>
-                                <th style="padding: 10px;">STATUS</th>
-                                <th style="padding: 10px;">OVERDUE FINE</th>
-                                <th style="padding: 10px;">ACTIONS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (count($transactions) > 0): ?>
-                                    <?php foreach ($transactions as $txn): ?>
-                                            <tr style="border-bottom: 1px solid #f1f5f9;">
-                                                <td style="padding: 10px;">#<?= htmlspecialchars($txn['txn_id']); ?></td>
-                                                <td style="padding: 10px;"><strong><?= htmlspecialchars($txn['user_id']); ?></strong></td>
-                                                <td style="padding: 10px;"><?= htmlspecialchars($txn['book_title']); ?></td>
-                                                <td style="padding: 10px;"><?= htmlspecialchars($txn['due_date']); ?></td>
-                                                <td style="padding: 10px;">
-                                                    <span class="badge"><?= htmlspecialchars($txn['status']); ?></span>
-                                                </td>
-                                                <td style="padding: 10px;">₱<?= number_format($txn['overdue_fine'] ?? 0, 2); ?></td>
-                                                <td style="padding: 10px;">
-                                                    <?php if ($txn['status'] === 'Borrowed'): ?>
-                                                            <?php
-                                                            // Siguraduhing nasasama ang tamang book_id mula sa $txn array
-                                                            $currentTxnId = $txn['id'] ?? $txn['txn_id'] ?? '';
-                                                            // Kung sakaling ang column sa database ay 'book_id' o kaya ay 'id' ng libro
-                                                            $currentBookId = $txn['book_id'] ?? $txn['id'] ?? '';
-                                                            ?>
-                                                            <a href="#"
-                                                                onclick="openReturnModal('<?= $currentTxnId; ?>', '<?= $currentBookId; ?>'); return false;"
-                                                                style="color: #3b82f6; text-decoration: none; font-weight: 500;">Manage</a>
-                                                    <?php else: ?>
-                                                            <span style="color: #64748b;">Completed</span>
-                                                    <?php endif; ?>
-                                                </td>
-                                            </tr>
-                                    <?php endforeach; ?>
-                            <?php else: ?>
-                                    <tr>
-                                        <td colspan="7" style="text-align: center; padding: 20px; color: #64748b;">No Record Found in
-                                            Transactions
-                                        </td>
-                                    </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
                 </div>
+                <table class="data-table" style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
+                            <th style="padding: 10px;">TXN ID</th>
+                            <th style="padding: 10px;">MEMBER</th>
+                            <th style="padding: 10px;">BOOK TITLE</th>
+                            <th style="padding: 10px;">DUE DATE</th>
+                            <th style="padding: 10px;">STATUS</th>
+                            <th style="padding: 10px;">OVERDUE FINE</th>
+                            <th style="padding: 10px;">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (count($transactions) > 0): ?>
+                            <?php foreach ($transactions as $txn): ?>
+                                <tr style="border-bottom: 1px solid #f1f5f9;">
+                                    <td style="padding: 10px;">#<?= htmlspecialchars($txn['txn_id']); ?></td>
+                                    <td style="padding: 10px;"><strong><?= htmlspecialchars($txn['user_id']); ?></strong></td>
+                                    <td style="padding: 10px;"><?= htmlspecialchars($txn['book_title']); ?></td>
+                                    <td style="padding: 10px;"><?= htmlspecialchars($txn['due_date']); ?></td>
+                                    <td style="padding: 10px;">
+                                        <span class="badge"><?= htmlspecialchars($txn['status']); ?></span>
+                                    </td>
+                                    <td style="padding: 10px;">₱<?= number_format($txn['overdue_fine'] ?? 0, 2); ?></td>
+                                    <td style="padding: 10px;">
+                                        <?php if ($txn['status'] === 'Borrowed'): ?>
+                                            <?php
+                                            // Siguraduhing nasasama ang tamang book_id mula sa $txn array
+                                            $currentTxnId = $txn['id'] ?? $txn['txn_id'] ?? '';
+                                            // Kung sakaling ang column sa database ay 'book_id' o kaya ay 'id' ng libro
+                                            $currentBookId = $txn['book_id'] ?? $txn['id'] ?? '';
+                                            ?>
+                                            <a href="#"
+                                                onclick="openReturnModal('<?= $currentTxnId; ?>', '<?= $currentBookId; ?>'); return false;"
+                                                style="color: #3b82f6; text-decoration: none; font-weight: 500;">Manage</a>
+                                        <?php else: ?>
+                                            <span style="color: #64748b;">Completed</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 20px; color: #64748b;">No Record Found in
+                                    Transactions
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         <?php endif; ?>
 
         <!-- 3. USERS VIEW -->
         <?php if ($current_view === 'users'): ?>
 
 
-                <div style="display: flex; flex-direction: column; width: 100%; gap: 20px;">
+            <div style="display: flex; flex-direction: column; width: 100%; gap: 20px;">
 
-                    <!-- 1. Header kasama ang Title at Search Bar sa iisang row -->
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                        <h2 class="portal-catalog-title" style="display: flex; align-items: center; gap: 10px; margin: 0;">
-                            <i class="fa-solid fa-users" style="color: #4f46e5;"></i> Registered Users Management
-                        </h2>
-                
-                        <!-- Search Bar -->
-                        <form method="GET" action="admin.php" style="display: flex; gap: 10px; margin: 0;">
-                            <input type="hidden" name="view" value="users">
-                            <input type="text" name="search_user" placeholder="Search username or email..." ...
+                <!-- 1. Header kasama ang Title at Search Bar sa iisang row -->
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                    <h2 class="portal-catalog-title" style="display: flex; align-items: center; gap: 10px; margin: 0;">
+                        <i class="fa-solid fa-users" style="color: #4f46e5;"></i> Registered Users Management
+                    </h2>
+
+                    <!-- Search Bar -->
+                    <form method="GET" action="admin.php" id="searchForm" style="display: flex; gap: 10px; margin: 0;">
+                        <input type="hidden" name="view" value="users">
+                        <input type="text" id="searchInput" name="search_user" placeholder="Search username or email..."
                             value="<?= isset($_GET['search_user']) ? htmlspecialchars($_GET['search_user']) : ''; ?>"
                             style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 250px;">
-                            <button type="submit" class="btn-primary"
-                                style="padding: 8px 16px; background: #1e293b; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Search</button>
-                        </form>
-                    </div>
-
-                    <!-- 2. Stat Card sa itaas ng Table -->
-                    <div>
-                        <div
-                            style="background: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: inline-block; min-width: 200px;">
-                            <span style="color: #64748b; font-size: 14px;">Total Registered Users</span>
-                            <h3 style="margin: 5px 0 0 0; color: #1e293b;"><?= count($usersList); ?></h3>
-                        </div>
-                    </div>
-
-                    <!-- 3. Table at Pagination Container -->
-                    <div class="history-card-container"
-                        style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                        <table class="history-table" style="width: 100%; border-collapse: collapse;">
-                            <thead>
-                                <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
-                                    <th style="padding: 10px;">User ID</th>
-                                    <th style="padding: 10px;">Username</th>
-                                    <th style="padding: 10px;">Email / Details</th>
-                                    <th style="padding: 10px;">Date Registered</th>
-                                    <th style="padding: 10px; text-align: center;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (!empty($usersList)): ?>
-                                        <?php foreach ($usersList as $usr): ?>
-                                                <tr style="border-bottom: 1px solid #f1f5f9;">
-                                                    <td style="padding: 10px;"><?= htmlspecialchars($usr['id']); ?></td>
-                                                    <td style="padding: 10px; font-weight: 600;"><?= htmlspecialchars($usr['username']); ?></td>
-                                                    <td style="padding: 10px;">
-                                                        <?= isset($usr['email']) ? htmlspecialchars($usr['email']) : 'N/A'; ?>
-                                                    </td>
-                                                    <td style="padding: 10px;">
-                                                        <?= isset($usr['created_at']) ? htmlspecialchars($usr['created_at']) : 'N/A'; ?>
-                                                    </td>
-                                                    <td style="padding: 10px; text-align: center;">
-                                                        <button type="button"
-                                                            onclick="openDeleteModal('admin.php?view=users&delete_id=<?= $usr['id']; ?>')"
-                                                            style="padding: 6px 10px; background: #ef4444; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">
-                                                            <i class="fa-solid fa-trash"></i> Delete
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                        <?php endforeach; ?>
-                                <?php else: ?>
-                                        <tr>
-                                            <td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">No Registered
-                                                Users Found</td>
-                                        </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-
-                        <!-- Pagination UI -->
-                        <?php if (isset($totalPages) && $totalPages > 1): ?>
-                                <div style="display: flex; justify-content: center; gap: 5px; margin-top: 20px;">
-                                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                                            <a href="admin.php?view=users&page=<?= $i; ?><?= isset($_GET['search_user']) ? '&search_user=' . urlencode($_GET['search_user']) : ''; ?>"
-                                                style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none; background: <?= (isset($_GET['page']) && $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1) ? '#1e293b' : '#fff'; ?>; color: <?= (isset($_GET['page']) && $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1) ? '#fff' : '#1e293b'; ?>;">
-                                                <?= $i; ?>
-                                            </a>
-                                    <?php endfor; ?>
-                                </div>
-                        <?php endif; ?>
-                    </div>
-
+                        <button type="submit"
+                            style="padding: 8px 16px; background: #1e293b; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Search</button>
+                    </form>
                 </div>
+
+                <!-- 2. Stat Card sa itaas ng Table -->
+                <div>
+                    <div
+                        style="background: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: inline-block; min-width: 200px;">
+                        <span style="color: #64748b; font-size: 14px;">Total Registered Users</span>
+                        <h3 style="margin: 5px 0 0 0; color: #1e293b;"><?= count($usersList); ?></h3>
+                    </div>
+                </div>
+
+                <!-- 3. Table at Pagination Container -->
+                <div class="history-card-container"
+                    style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                    <table class="history-table" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
+                                <th style="padding: 10px;">User ID</th>
+                                <th style="padding: 10px;">Username</th>
+                                <th style="padding: 10px;">Email / Details</th>
+                                <th style="padding: 10px;">Date Registered</th>
+                                <th style="padding: 10px; text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($usersList)): ?>
+                                <?php foreach ($usersList as $usr): ?>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 10px;"><?= htmlspecialchars($usr['id']); ?></td>
+                                        <td style="padding: 10px; font-weight: 600;"><?= htmlspecialchars($usr['username']); ?></td>
+                                        <td style="padding: 10px;">
+                                            <?= isset($usr['email']) ? htmlspecialchars($usr['email']) : 'N/A'; ?>
+                                        </td>
+                                        <td style="padding: 10px;">
+                                            <?= isset($usr['created_at']) ? htmlspecialchars($usr['created_at']) : 'N/A'; ?>
+                                        </td>
+                                        <td style="padding: 10px; text-align: center;">
+                                            <button type="button"
+                                                onclick="openDeleteModal('admin.php?view=users&delete_id=<?= $usr['id']; ?>')"
+                                                style="padding: 6px 10px; background: #ef4444; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                                                <i class="fa-solid fa-trash"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 20px; color: #64748b;">No Registered
+                                        Users Found</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination UI -->
+                    <?php if (isset($totalPages) && $totalPages > 1): ?>
+                        <div style="display: flex; justify-content: center; gap: 5px; margin-top: 20px;">
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                <a href="admin.php?view=users&page=<?= $i; ?><?= isset($_GET['search_user']) ? '&search_user=' . urlencode($_GET['search_user']) : ''; ?>"
+                                    style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 4px; text-decoration: none; background: <?= (isset($_GET['page']) && $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1) ? '#1e293b' : '#fff'; ?>; color: <?= (isset($_GET['page']) && $_GET['page'] == $i) || (!isset($_GET['page']) && $i == 1) ? '#fff' : '#1e293b'; ?>;">
+                                    <?= $i; ?>
+                                </a>
+                            <?php endfor; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+            </div>
         <?php endif; ?>
     </div>
     </div>
     <?php if (isset($_GET['view']) && $_GET['view'] === 'audit_logs'): ?>
 
-            <div class="audit-logs-container">
-                <h3 class="audit-logs-title">Admin Audit Logs</h3>
-                <table class="audit-logs-table">
-                    <thead>
-                        <tr>
-                            <th class="col-id">ID</th>
-                            <th class="col-action">Aksyon</th>
+        <div class="audit-logs-container">
+            <h3 class="audit-logs-title">Admin Audit Logs</h3>
+            <table class="audit-logs-table">
+                <thead>
+                    <tr>
+                        <th class="col-id">ID</th>
+                        <th class="col-action">Aksyon</th>
 
-                            <th class="col-details">Detalye</th>
-                            <th class="col-date">Oras</th>
+                        <th class="col-details">Detalye</th>
+                        <th class="col-date">Oras</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $stmtLogs = $conn->query("SELECT * FROM audit_logs ORDER BY created_at DESC LIMIT 50");
+                    $logs = $stmtLogs->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    <?php if (!empty($logs) && count($logs) > 0): ?>
+                        <?php foreach ($logs as $log): ?>
+                            <tr>
+                                <td class="col-id">#
+                                    <?= $log['id']; ?>
+                                </td>
+                                <td class="col-action">
+                                    <?= htmlspecialchars($log['action']); ?>
+                                </td>
+                                <td class="col-details">
+                                    <?= htmlspecialchars($log['details']); ?>
+                                </td>
+                                <td class="col-date"><?= $log['created_at']; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4" class="audit-logs-empty">Wala pang naka-record na log.</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $stmtLogs = $conn->query("SELECT * FROM audit_logs ORDER BY created_at DESC LIMIT 50");
-                        $logs = $stmtLogs->fetchAll(PDO::FETCH_ASSOC);
-                        ?>
-                        <?php if (!empty($logs) && count($logs) > 0): ?>
-                                <?php foreach ($logs as $log): ?>
-                                        <tr>
-                                            <td class="col-id">#
-                                                <?= $log['id']; ?>
-                                            </td>
-                                            <td class="col-action">
-                                                <?= htmlspecialchars($log['action']); ?>
-                                            </td>
-                                            <td class="col-details">
-                                                <?= htmlspecialchars($log['details']); ?>
-                                            </td>
-                                            <td class="col-date"><?= $log['created_at']; ?>
-                                            </td>
-                                        </tr>
-                                <?php endforeach; ?>
-                        <?php else: ?>
-                                <tr>
-                                    <td colspan="4" class="audit-logs-empty">Wala pang naka-record na log.</td>
-                                </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
 
     <?php endif; ?>
 
