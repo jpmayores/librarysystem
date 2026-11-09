@@ -360,9 +360,7 @@ if ($current_view === 'inventory') {
                             <?php endif; ?>
                         </tbody>
                     </table>
-                </div>
-            <?php endif; ?>
-            <?php if (isset($totalPages) && $totalPages > 1): ?>
+                       <?php if (isset($totalPages) && $totalPages > 1): ?>
                 <div style="display: flex; justify-content: center; gap: 5px; margin-top: 20px;">
                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                         <a href="admin.php?view=inventory&page=<?= $i; ?><?= !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
@@ -372,6 +370,9 @@ if ($current_view === 'inventory') {
                     <?php endfor; ?>
                 </div>
             <?php endif; ?>
+                </div>
+            <?php endif; ?>
+         
             <!-- 2. TRANSACTIONS VIEW -->
             <?php if ($current_view === 'transactions'): ?>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
@@ -537,6 +538,7 @@ if ($current_view === 'inventory') {
 
             </div>
         <?php endif; ?>
+    </div>
     </div>
     <?php if (isset($_GET['view']) && $_GET['view'] === 'audit_logs'): ?>
 
