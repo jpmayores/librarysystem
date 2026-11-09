@@ -214,12 +214,16 @@ if ($current_view === 'inventory') {
         font-weight: 700;
         color: #1e293b;
     }
+
     .sidebar {
-    position: sticky; /* O kaya ay 'fixed' depende sa iyong layout */
-    top: 0;
-    height: 100vh; /* Sakop ang buong taas ng screen */
-    overflow-y: auto; /* Para makapag-scroll pa rin sa loob ng sidebar kung marami ang laman */
-}
+        position: sticky;
+        /* O kaya ay 'fixed' depende sa iyong layout */
+        top: 0;
+        height: 100vh;
+        /* Sakop ang buong taas ng screen */
+        overflow-y: auto;
+        /* Para makapag-scroll pa rin sa loob ng sidebar kung marami ang laman */
+    }
 </style>
 
 <body>
@@ -366,19 +370,19 @@ if ($current_view === 'inventory') {
                             <?php endif; ?>
                         </tbody>
                     </table>
-                       <?php if (isset($totalPages) && $totalPages > 1): ?>
-                <div style="display: flex; justify-content: center; gap: 5px; margin-top: 20px;">
-                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                        <a href="admin.php?view=inventory&page=<?= $i; ?><?= !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
-                            style="padding: 6px 12px; border-radius: 6px; text-decoration: none; background: <?= ($page == $i) ? '#3b82f6' : '#e2e8f0'; ?>; color: <?= ($page == $i) ? '#fff' : '#1e293b'; ?>;">
-                            <?= $i; ?>
-                        </a>
-                    <?php endfor; ?>
+                    <?php if (isset($totalPages) && $totalPages > 1): ?>
+                        <div style="display: flex; justify-content: center; gap: 5px; margin-top: 20px;">
+                            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                                <a href="admin.php?view=inventory&page=<?= $i; ?><?= !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
+                                    style="padding: 6px 12px; border-radius: 6px; text-decoration: none; background: <?= ($page == $i) ? '#3b82f6' : '#e2e8f0'; ?>; color: <?= ($page == $i) ? '#fff' : '#1e293b'; ?>;">
+                                    <?= $i; ?>
+                                </a>
+                            <?php endfor; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
-                </div>
-            <?php endif; ?>
-         
+
             <!-- 2. TRANSACTIONS VIEW -->
             <?php if ($current_view === 'transactions'): ?>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
@@ -469,9 +473,9 @@ if ($current_view === 'inventory') {
                     <!-- Search Bar -->
                     <form method="GET" action="admin.php" style="display: flex; gap: 10px; margin: 0;">
                         <input type="hidden" name="view" value="users">
-                        <input type="text" name="search_user" placeholder="Search username or email..."
-                          value="<?= isset($_GET['search_user']) ? htmlspecialchars($_GET['search_user']) : ''; ?>"
-                            style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 250px;">
+                        <input type="text" name="search_user" placeholder="Search username or email..." ...
+                        value="<?= isset($_GET['search_user']) ? htmlspecialchars($_GET['search_user']) : ''; ?>"
+                        style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; width: 250px;">
                         <button type="submit" class="btn-primary"
                             style="padding: 8px 16px; background: #1e293b; color: #fff; border: none; border-radius: 6px; cursor: pointer;">Search</button>
                     </form>
@@ -684,60 +688,67 @@ if ($current_view === 'inventory') {
         </div>
     </div>
     <!-- Custom Delete Modal -->
-<div id="deleteModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
-    <div style="background: #fff; padding: 25px; border-radius: 12px; width: 400px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); text-align: center;">
-        <h3 style="margin-top: 0; color: #1e293b;">Confirm Deletion</h3>
-        <p style="color: #64748b; font-size: 14px;">Are you sure you want to delete this user? This action cannot be undone.</p>
-        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
-            <button onclick="closeDeleteModal()" style="padding: 8px 16px; background: #e2e8f0; color: #1e293b; border: none; border-radius: 6px; cursor: pointer;">Cancel</button>
-            <a id="confirmDeleteBtn" href="#" style="padding: 8px 16px; background: #ef4444; color: #fff; border-radius: 6px; text-decoration: none;">Yes, Delete</a>
+    <div id="deleteModal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div
+            style="background: #fff; padding: 25px; border-radius: 12px; width: 400px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); text-align: center;">
+            <h3 style="margin-top: 0; color: #1e293b;">Confirm Deletion</h3>
+            <p style="color: #64748b; font-size: 14px;">Are you sure you want to delete this user? This action cannot be
+                undone.</p>
+            <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+                <button onclick="closeDeleteModal()"
+                    style="padding: 8px 16px; background: #e2e8f0; color: #1e293b; border: none; border-radius: 6px; cursor: pointer;">Cancel</button>
+                <a id="confirmDeleteBtn" href="#"
+                    style="padding: 8px 16px; background: #ef4444; color: #fff; border-radius: 6px; text-decoration: none;">Yes,
+                    Delete</a>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Toast Notification Container -->
-<div id="toastNotification" style="display: none; position: fixed; bottom: 20px; right: 20px; background: #10b981; color: #fff; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 1100; font-weight: 500;">
-    User successfully deleted!
-</div>
+    <!-- Toast Notification Container -->
+    <div id="toastNotification"
+        style="display: none; position: fixed; bottom: 20px; right: 20px; background: #10b981; color: #fff; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 1100; font-weight: 500;">
+        User successfully deleted!
+    </div>
     <script src="asset/script.js"></script>
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const searchInput = document.getElementById('searchInput');
-    const searchForm = document.getElementById('searchForm');
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById('searchInput');
+            const searchForm = document.getElementById('searchForm');
 
-    if (searchInput && searchForm) {
-        let searchTimeout;
-        searchInput.addEventListener('input', function() {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                searchForm.submit();
-            }, 400);
+            if (searchInput && searchForm) {
+                let searchTimeout;
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        searchForm.submit();
+                    }, 400);
+                });
+            }
         });
-    }
-});
-          function openDeleteModal(deleteUrl) {
-    const modal = document.getElementById('deleteModal');
-    const confirmBtn = document.getElementById('confirmDeleteBtn');
-    confirmBtn.href = deleteUrl;
-    modal.style.display = 'flex';
-}
+        function openDeleteModal(deleteUrl) {
+            const modal = document.getElementById('deleteModal');
+            const confirmBtn = document.getElementById('confirmDeleteBtn');
+            confirmBtn.href = deleteUrl;
+            modal.style.display = 'flex';
+        }
 
-function closeDeleteModal() {
-    const modal = document.getElementById('deleteModal');
-    modal.style.display = 'none';
-}
+        function closeDeleteModal() {
+            const modal = document.getElementById('deleteModal');
+            modal.style.display = 'none';
+        }
 
-// Para sa Toast kung may tagumpay galing sa URL parameter
-window.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('deleted') === 'success') {
-        const toast = document.getElementById('toastNotification');
-        toast.style.display = 'block';
-        setTimeout(() => {
-            toast.style.display = 'none';
-        }, 3000); // Mawawala pagkatapos ng 3 segundo
-    }
-});
+        // Para sa Toast kung may tagumpay galing sa URL parameter
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('deleted') === 'success') {
+                const toast = document.getElementById('toastNotification');
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 3000); // Mawawala pagkatapos ng 3 segundo
+            }
+        });
         function openReturnModal(txnId, bookId) {
             // Kunin ang modal at mga hidden input
             const modal = document.getElementById('returnBookModal');
