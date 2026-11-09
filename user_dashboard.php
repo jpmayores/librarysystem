@@ -91,6 +91,66 @@ try {
     <title>User Dashboard - BookBase</title>
     <link rel="stylesheet" href="asset/index.css">
     <style>
+        /* Card container para magkabahay ang buong table at may rounded corners */
+.history-card-container {
+    background-color: var(--card-bg, #1e293b); /* Depende sa kulay ng theme mo */
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; /* Para hindi sumabog sa mobile screens */
+}
+
+/* Base table styling */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    color: var(--text-color, #cbd5e1);
+    font-size: 0.9rem;
+}
+
+/* Table Header styling */
+.history-table th {
+    padding: 12px 16px;
+    background-color: rgba(15, 23, 42, 0.6);
+    color: var(--text-muted, #94a3b8);
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color, #334155);
+}
+
+/* Table Data Cells styling */
+.history-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color, #334155);
+    white-space: nowrap; /* Pinipigilan mag-wrap ang mga petsa at status */
+}
+
+/* Hover effect sa bawat row para mas maganda tingnan */
+.history-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Badge styling para sa Status */
+.badge-returned {
+    background-color: #065f46;
+    color: #34d399;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.portal-status-tag.borrowed {
+    background-color: #78350f;
+    color: #fbbf24;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+}
         .btn-return {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: #ffffff;
