@@ -209,28 +209,34 @@ if ($current_view === 'inventory') {
         font-weight: 700;
         color: #1e293b;
     }
-.admin-main {
-    flex: 1;
-    min-width: 0; /* Pinipigilan ang flex items na mag-overflow o mang-stretches */
-    box-sizing: border-box;
-    padding: 30px;
-    background: #f8fafc;
-}
+
+    .admin-main {
+        flex: 1;
+        min-width: 0;
+        /* Pinipigilan ang flex items na mag-overflow o mang-stretches */
+        box-sizing: border-box;
+        padding: 30px;
+        background: #f8fafc;
+    }
+
     .sidebar {
         position: sticky;
-        /* O kaya ay 'fixed' depende sa iyong layout */
         top: 0;
         height: 100vh;
-        /* Sakop ang buong taas ng screen */
         overflow-y: auto;
-        /* Para makapag-scroll pa rin sa loob ng sidebar kung marami ang laman */
+        width: 260px;
+        min-width: 260px;
+        max-width: 260px;
+        flex-shrink: 0;
+        box-sizing: border-box;
     }
+
     .sidebar a {
-    display: block;
-    padding: 10px 15px;
-    /* Iwasang mag-shift ang layout kapag nagiging bold ang active state */
-    white-space: nowrap; 
-}
+        display: block;
+        padding: 10px 15px;
+        /* Iwasang mag-shift ang layout kapag nagiging bold ang active state */
+        white-space: nowrap;
+    }
 </style>
 
 <body>
@@ -571,22 +577,22 @@ if ($current_view === 'inventory') {
                         <th class="col-date">Oras</th>
                     </tr>
                 </thead>
-              <tbody>
-    <?php if (!empty($logs)): ?>
-        <?php foreach ($logs as $log): ?>
-            <tr>
-                <td class="col-id">#<?= htmlspecialchars($log['id']); ?></td>
-                <td class="col-action"><?= htmlspecialchars($log['action'] ?? ''); ?></td>
-                <td class="col-details"><?= htmlspecialchars($log['details'] ?? ''); ?></td>
-                <td class="col-date"><?= htmlspecialchars($log['created_at'] ?? ''); ?></td>
-            </tr>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <tr>
-            <td colspan="4" class="audit-logs-empty">Wala pang naka-record na log.</td>
-        </tr>
-    <?php endif; ?>
-</tbody>
+                <tbody>
+                    <?php if (!empty($logs)): ?>
+                        <?php foreach ($logs as $log): ?>
+                            <tr>
+                                <td class="col-id">#<?= htmlspecialchars($log['id']); ?></td>
+                                <td class="col-action"><?= htmlspecialchars($log['action'] ?? ''); ?></td>
+                                <td class="col-details"><?= htmlspecialchars($log['details'] ?? ''); ?></td>
+                                <td class="col-date"><?= htmlspecialchars($log['created_at'] ?? ''); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4" class="audit-logs-empty">Wala pang naka-record na log.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
             </table>
         </div>
 
