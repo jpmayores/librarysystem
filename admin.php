@@ -701,16 +701,19 @@ if ($current_view === 'inventory') {
 </div>
     <script src="asset/script.js"></script>
     <script>
-        let searchTimeout;
-const searchInput = document.getElementById('searchInput');
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById('searchInput');
+    const searchForm = document.getElementById('searchForm');
 
-searchInput.addEventListener('input', function() {
-    clearTimeout(searchTimeout);
-    
-    // Maghihintay ng 400 milliseconds pagkatapos mong mag-type bago mag-submit para hindi bumagal
-    searchTimeout = setTimeout(() => {
-        document.getElementById('searchForm').submit();
-    }, 400);
+    if (searchInput && searchForm) {
+        let searchTimeout;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                searchForm.submit();
+            }, 400);
+        });
+    }
 });
           function openDeleteModal(deleteUrl) {
     const modal = document.getElementById('deleteModal');
