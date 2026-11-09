@@ -537,8 +537,6 @@ if ($current_view === 'inventory') {
 
             </div>
         <?php endif; ?>
-
-    </div>
     </div>
     <?php if (isset($_GET['view']) && $_GET['view'] === 'audit_logs'): ?>
 
